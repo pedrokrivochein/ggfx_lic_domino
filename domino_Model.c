@@ -1,1 +1,17 @@
 //Modelo (Estruturas, Variaveis Globais, etc..)
+//fala galera, com 10k likes eu 
+
+#define MAXPECA 28
+
+typedef struct peca{
+    int lado1, lado2;
+} tipoPeca;
+
+tipoPeca pecas[MAXPECA];
+
+typedef struct jogador{
+    char nome[100];
+    tipoPeca mao[7];
+} tipoJogador;
+
+tipoJogador jogadores[2];
