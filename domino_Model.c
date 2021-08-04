@@ -7,11 +7,12 @@ typedef struct peca{
     int lado1, lado2;
 } tipoPeca;
 
-tipoPeca pecas[MAXPECA];
+tipoPeca pecas[MAXPECA]; //Pecas geral
+tipoPeca mesa[MAXPECA]; //Mesa do jogo
 
 typedef struct jogador{
     char nome[100];
     tipoPeca mao[7];
 } tipoJogador;
 
-tipoJogador jogadores[2];
+tipoJogador jogadores[2]; //Lista de jogadores

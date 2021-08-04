@@ -7,18 +7,16 @@
 #include <time.h>
 
 //Declaracoes funcoes
+void limparBuffer();
 
-
-void mostrarTodasPecas();
-
-char menuGeral(){
+char menuGeral(){ //Menu inicial
     char escolha;
-    printf("1) Iniciar novo jogo\n2) Continuar a Jogar\n3) Salvar Jogo\n4) Carregar Jogo\n5) Regras do Jogo\n6) Sair do Jogo\n");
+    printf("1) Iniciar novo jogo\n2) Continuar a Jogar\n3) Salvar Jogo\n4) Carregar Jogo\n5) Regras do Jogo\n6) Sair do Jogo\n-> ");
     scanf(" %c", &escolha);
     return escolha;
 }
 
-char menuJogadores(){
+void menuJogadores(){ //Menu apos o inicial para escolher quantidade de jogadores.
     int qtJogadores;
     do{
         printf("Quantidade de jogadores: ");
@@ -37,7 +35,7 @@ char menuJogadores(){
 }
 
 
-char menuJogo(int jogador){
+char menuJogo(int jogador){ //Menu de acoes dentro do jogo.
     char escolha;
     printf("Jogo de Domino (PUC-SP)");
     printf("Vez de %s", jogadores[jogador].nome);
@@ -46,12 +44,17 @@ char menuJogo(int jogador){
     return escolha;
 }
 
-void mostrarPecas(int jogador){
-
-
+void mostrarTodasPecas(){ //Mostrar a mesa geral.
+	int i;
+	for(i = 0; i < 28; i++)
+		printf("[%d:%d] ", mesa[i].lado1, mesa[i].lado2);
+	printf("\n");
 }
 
-char limparBuffer(){
-    char limparbuffer;
-    while ((limparbuffer = fgetc(stdin)) != EOF && limparbuffer != '\n'){};
+void mostrarPecas(int jogador){ //Mostra as pecas de um jogador.
+}
+
+void limparBuffer(){ //Limpar buffer do teclado.
+    char c;
+    while ((c = fgetc(stdin)) != EOF && c != '\n'){};
 }

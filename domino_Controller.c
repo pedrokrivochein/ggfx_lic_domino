@@ -4,11 +4,17 @@
 #include "domino_View.c"
 
 //Funcoes
-void inicializarJogo(){
+void iniciarJogo();
+void inicializarJogo();
+void criarPecas();
+void embaralharPecas();
+
+void inicializarJogo(){ //Recebe o comando o usuario no menu geral.
     char escolha = menuGeral();
 
     switch(escolha){
         case '1':
+        	iniciarJogo();
             break;
         case '2':
             break;
@@ -17,20 +23,62 @@ void inicializarJogo(){
     }
 }
 
+void iniciarJogo(){ //Iniciar o jogo.
+	criarPecas();
+	mostrarTodasPecas();
+	
+	menuJogadores();
+	
+	/*
+	Pedir em algum menu. (Embaralhar e mostrar pecas)
+	embaralharPecas();
+	mostrarTodasPecas();
+	*/
+}
+
 void criarPecas(){
     int i, j, aux = 0;
 
-    for(i = 0; i <= 6; i++){
-        pecas[aux].lado1 = i;
-        for(j = 0; j <= 6; j++){
+    for(i = 0; i <= 6; i++){ //Gera as 28 pecas.
+        for(j = i; j <= 6; j++){
+        	pecas[aux].lado1 = i;
             pecas[aux].lado2 = j;
+            aux++;
         }
-        aux++;
     }
+    
+    for(i = 0; i < 28; i++) //Adiciona essas pecas na mesa.
+    	mesa[i] = pecas[i];
 }
 
-void embaralharPecas(){
-    int valor;
-    srand(time(NULL));
-    valor = rand() % 28;
+int contemElemento(tipoPeca lista[], tipoPeca peca){ //Verifica se contem a peca na lista.
+	int i;
+	for(i = 0; i < 28; i++){
+		if(lista[i].lado1 == peca.lado1 && lista[i].lado2 == peca.lado2)
+			return 1;
+	}
+	return 0;
+}
+
+void embaralharPecas(){ //Embaralha as pecas na mesa.
+	tipoPeca pecasEmbaralhadas[28];
+	
+	int i, j;
+    	
+	srand(time(NULL));
+	for(i = 0; i < 28; i++){
+		int n = rand() % 28;
+		if(!contemElemento(pecasEmbaralhadas, pecas[n])){
+			pecasEmbaralhadas[i] = pecas[n];
+		}else{
+			for(j = 0; j < 28; j++){
+				if(!contemElemento(pecasEmbaralhadas, pecas[j])){
+					pecasEmbaralhadas[i] = pecas[j];
+				}
+			}
+		}
+	}
+	
+	for(i = 0; i < 28; i++) //Adiciona essas pecas na mesa.
+    	mesa[i] = pecasEmbaralhadas[i];
 }
