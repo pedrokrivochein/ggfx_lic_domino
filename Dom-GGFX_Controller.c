@@ -46,7 +46,11 @@ void gameLoop(){ //Loop do jogo (Menu de acoes do jogador)
 			embaralharPecas();
 			mostrarTodasPecas();
 			break;
-		case '6': //Voltar ao menu
+		case '4': //Embaralhar pecas e mostra-las
+			criarPecas();
+			mostrarTodasPecas();
+			break;
+		case '7': //Voltar ao menu
 			inicializarJogo();
 			return;
 		default:

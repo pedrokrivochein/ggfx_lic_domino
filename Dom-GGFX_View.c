@@ -45,7 +45,7 @@ char menuJogo(int jogador){ //Menu de acoes dentro do jogo
     char escolha;
     printf("\nJogo de Domino (GGFX)\n");
     printf("Vez de: %s\n", jogadores[jogador].nome);
-    printf("1) Mesa de Domino\n2) Ver suas pecas - EM BREVE\n3) Embaralhar pecas\n4) Jogar - EM BREVE\n5) Comprar pecas - EM BREVE\n6) Voltar menu principal\n-> Escolha uma opcao: ");
+    printf("1) Mesa de Domino\n2) Ver suas pecas - EM BREVE\n3) Embaralhar pecas\n4) Organizar as pecas\n5) Jogar - EM BREVE\n6) Comprar pecas - EM BREVE\n7) Voltar menu principal\n-> Escolha uma opcao: ");
     scanf(" %c", &escolha);
     return escolha;
 }
