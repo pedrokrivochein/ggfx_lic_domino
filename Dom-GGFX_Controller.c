@@ -4,11 +4,11 @@
 #include "Dom-GGFX_View.c"
 
 //Funcoes
-void iniciarJogo();
-void inicializarJogo();
-void gameLoop();
-void criarPecas();
-void embaralharPecas();
+void inicializarJogo(); //Inicializa o menu inicial
+void iniciarJogo(); //Inicia o jogo
+void gameLoop(); //Loop do jogo (Menu de acoes do jogador)
+void criarPecas(); //Gera as pecas e as coloca na mesa
+void embaralharPecas(); //Embaralha as pecas da mesa
 
 void inicializarJogo(){ //Recebe o comando o usuario no menu geral.
     char escolha = menuGeral();
@@ -27,29 +27,24 @@ void inicializarJogo(){ //Recebe o comando o usuario no menu geral.
 }
 
 void iniciarJogo(){ //Iniciar o jogo.
-	criarPecas();
-	mostrarTodasPecas();
+	criarPecas(); //Gera as pecas da mesa.
+	mostrarTodasPecas(); //Mostra as pecas da mesa.
 	
-	menuJogadores(); //Preparacao para Etapa 3
+	menuJogadores(); //Chama o menu do nome do jogador.
 
-	gameLoop();
-	
-	/*
-	Pedir em algum menu. (Embaralhar e mostrar pecas)
-	embaralharPecas();
-	mostrarTodasPecas();
-	*/
+	gameLoop(); //Loop menu jogador
 }
 
-void gameLoop(){
+void gameLoop(){ //Loop do jogo (Menu de acoes do jogador)
 	char escolha = menuJogo(jogadorAtual);
 
 	switch(escolha){
 		case '1': //Mostrar Mesa
 			mostrarTodasPecas();
 			break;
-		case '3': //Embaralhar pecas
+		case '3': //Embaralhar pecas e mostra-las
 			embaralharPecas();
+			mostrarTodasPecas();
 			break;
 		case '6': //Voltar ao menu
 			inicializarJogo();
@@ -82,7 +77,7 @@ void embaralharPecas(){ //Embaralha as pecas na mesa.
 	int i;
     	
 	srand(time(NULL));
-	for(i = 0; i < MAXPECA; i++){
+	for(i = 0; i < MAXPECA; i++){ //Escolhe um numero aleatorio e troca as pecas.
 		int n = rand() % MAXPECA;
 		pecaHolder = mesa[i];
 		mesa[i] = mesa[n];

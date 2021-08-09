@@ -7,7 +7,7 @@
 #include <time.h>
 
 //Declaracoes funcoes
-void limparBuffer();
+void limparBuffer(); //Limpa o buffer do teclado.
 
 char menuGeral(){ //Menu inicial
     printf("\n---DOMINO ETAPA 1---\n");
@@ -19,17 +19,19 @@ char menuGeral(){ //Menu inicial
     return escolha;
 }
 
-void menuJogadores(){ //Menu apos o inicial para escolher quantidade de jogadores.
+void menuJogadores(){ //Menu apos o inicial para escolher quantidade de jogadores
     int qtJogadores;
-    do{
-        printf("\nQuantidade de jogadores: ");
+    do{ //Roda enquanto a quantidade de jogadores nao for valida
+        printf("\nQuantidade de jogadores (Max. 2): ");
         scanf("%d", &qtJogadores);
         if(qtJogadores > 2)
             printf("Valor maximo de jogadores: 2");
         else if(qtJogadores < 1)
-            printf("Valor minimo e 1");
-    }while(qtJogadores > 2); 
+            printf("Valor minimo de jogadores: 1");
+    }while(qtJogadores > 2 || qtJogadores < 1); 
+    
     limparBuffer();
+    
     printf("Nome jogador 1: ");
     fgets(jogadores[0].nome, 30, stdin);
     if(qtJogadores == 2){
@@ -39,17 +41,17 @@ void menuJogadores(){ //Menu apos o inicial para escolher quantidade de jogadore
 }
 
 
-char menuJogo(int jogador){ //Menu de acoes dentro do jogo.
+char menuJogo(int jogador){ //Menu de acoes dentro do jogo
     char escolha;
-    printf("\nJogo de Domino (PUC-SP)\n");
+    printf("\nJogo de Domino (GGFX)\n");
     printf("Vez de: %s\n", jogadores[jogador].nome);
     printf("1) Mesa de Domino\n2) Ver suas pecas - EM BREVE\n3) Embaralhar pecas\n4) Jogar - EM BREVE\n5) Comprar pecas - EM BREVE\n6) Voltar menu principal\n-> Escolha uma opcao: ");
     scanf(" %c", &escolha);
     return escolha;
 }
 
-void mostrarTodasPecas(){ //Mostrar a mesa geral.
-    printf("\n");
+void mostrarTodasPecas(){ //Mostrar a mesa geral
+    printf("\nMesa: ");
 
 	int i;
 	for(i = 0; i < MAXPECA; i++)
@@ -57,7 +59,7 @@ void mostrarTodasPecas(){ //Mostrar a mesa geral.
 	printf("\n");
 }
 
-void mostrarPecas(int jogador){ //Mostra as pecas de um jogador especifico.
+void mostrarPecas(int jogador){ //Mostra as pecas de um jogador especifico. (Em breve - Etapa 3)
     int i;
 	for(i = 0; i < 7; i++)
 		printf("[%d:%d] ", jogadores[jogador].mao[i].lado1, jogadores[jogador].mao[i].lado2);

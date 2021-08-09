@@ -1,6 +1,5 @@
 #include "Dom-GGFX_Controller.c"
 
-
 int main(){
-	inicializarJogo();
+	inicializarJogo(); //Da inicio ao jogo
 }
