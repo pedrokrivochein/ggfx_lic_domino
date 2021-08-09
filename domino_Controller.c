@@ -30,10 +30,9 @@ void iniciarJogo(){ //Iniciar o jogo.
 	menuJogadores();
 	
 	/*
-	Pedir em algum menu. (Embaralhar e mostrar pecas)
+	Pedir em algum menu. (Embaralhar e mostrar pecas)*/
 	embaralharPecas();
 	mostrarTodasPecas();
-	*/
 }
 
 void criarPecas(){
@@ -61,24 +60,15 @@ int contemElemento(tipoPeca lista[], tipoPeca peca){ //Verifica se contem a peca
 }
 
 void embaralharPecas(){ //Embaralha as pecas na mesa.
-	tipoPeca pecasEmbaralhadas[28];
+	tipoPeca pecaHolder;
 	
 	int i, j;
     	
 	srand(time(NULL));
 	for(i = 0; i < 28; i++){
 		int n = rand() % 28;
-		if(!contemElemento(pecasEmbaralhadas, pecas[n])){
-			pecasEmbaralhadas[i] = pecas[n];
-		}else{
-			for(j = 0; j < 28; j++){
-				if(!contemElemento(pecasEmbaralhadas, pecas[j])){
-					pecasEmbaralhadas[i] = pecas[j];
-				}
-			}
-		}
+		pecaHolder = mesa[i];
+		mesa[i] = mesa[n];
+		mesa[n] = pecaHolder;
 	}
-	
-	for(i = 0; i < 28; i++) //Adiciona essas pecas na mesa.
-    	mesa[i] = pecasEmbaralhadas[i];
 }
