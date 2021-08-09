@@ -1,7 +1,7 @@
 //Bibliotecas proprias
 
-#include "domino_Model.c"
-#include "domino_View.c"
+#include "Dom-GGFX_Model.c"
+#include "Dom-GGFX_View.c"
 
 //Funcoes
 void iniciarJogo();
