@@ -1,5 +1,4 @@
 //Modelo (Estruturas, Variaveis Globais, etc..)
-//fala galera, com 10k likes eu 
 
 #define MAXPECA 28
 
