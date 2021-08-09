@@ -1,9 +1,9 @@
 /*
 Dom-GGFX - Jogo de domino (Etapa 1)
-Pedro Alcantara Krivochein - 21/05/2021
-Gustavo Barbieri Esposar - 21/05/2021
-Caio de Nasi Sclavi - 21/05/2021
-Gabriel Cabral Costa - 21/05/2021
+Pedro Alcantara Krivochein - 09/08/2021
+Gustavo Barbieri Esposar - 09/08/2021
+Caio de Nasi Sclavi - 09/08/2021
+Gabriel Cabral Costa - 09/08/2021
 */
 
 #include "Dom-GGFX_Controller.c"
