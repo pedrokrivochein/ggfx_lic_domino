@@ -3,7 +3,6 @@
 //Bibliotecas padrao
 
 #include <stdio.h>
-#include <string.h>
 #include <time.h>
 
 //Declaracoes funcoes
@@ -56,5 +55,5 @@ void mostrarPecas(int jogador){ //Mostra as pecas de um jogador.
 
 void limparBuffer(){ //Limpar buffer do teclado.
     char c;
-    while ((c = fgetc(stdin)) != EOF && c != '\n'){};
+    while ((c = fgetc(stdin)) != EOF && c != '\n'){}
 }

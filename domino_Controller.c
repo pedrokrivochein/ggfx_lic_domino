@@ -1,5 +1,6 @@
 //Bibliotecas proprias
 
+#include <stdlib.h>
 #include "domino_Model.c"
 #include "domino_View.c"
 
@@ -17,7 +18,6 @@ void inicializarJogo(){ //Recebe o comando o usuario no menu geral.
         	iniciarJogo();
             break;
         case '2':
-            break;
         case '3':
             break;
     }
@@ -50,19 +50,10 @@ void criarPecas(){
     	mesa[i] = pecas[i];
 }
 
-int contemElemento(tipoPeca lista[], tipoPeca peca){ //Verifica se contem a peca na lista.
-	int i;
-	for(i = 0; i < 28; i++){
-		if(lista[i].lado1 == peca.lado1 && lista[i].lado2 == peca.lado2)
-			return 1;
-	}
-	return 0;
-}
-
 void embaralharPecas(){ //Embaralha as pecas na mesa.
 	tipoPeca pecaHolder;
 	
-	int i, j;
+	int i;
     	
 	srand(time(NULL));
 	for(i = 0; i < 28; i++){
