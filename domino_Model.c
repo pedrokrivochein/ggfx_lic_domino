@@ -16,3 +16,4 @@ typedef struct jogador{
 } tipoJogador;
 
 tipoJogador jogadores[2]; //Lista de jogadores
+int jogadorAtual = 0;

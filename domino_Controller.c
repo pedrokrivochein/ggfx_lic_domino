@@ -6,6 +6,7 @@
 //Funcoes
 void iniciarJogo();
 void inicializarJogo();
+void gameLoop();
 void criarPecas();
 void embaralharPecas();
 
@@ -13,7 +14,7 @@ void inicializarJogo(){ //Recebe o comando o usuario no menu geral.
     char escolha = menuGeral();
 
     switch(escolha){
-        case '1':
+        case '1': //Iniciar jogo
         	iniciarJogo();
             break;
         case '2':
@@ -27,11 +28,41 @@ void iniciarJogo(){ //Iniciar o jogo.
 	mostrarTodasPecas();
 	
 	menuJogadores();
+
+	gameLoop();
 	
 	/*
-	Pedir em algum menu. (Embaralhar e mostrar pecas)*/
+	Pedir em algum menu. (Embaralhar e mostrar pecas)
 	embaralharPecas();
 	mostrarTodasPecas();
+	*/
+}
+
+void gameLoop(){
+	char escolha;
+	do{
+		escolha = menuJogo(jogadorAtual);
+
+		switch(escolha){
+			case '1': //Mostrar Mesa
+				mostrarTodasPecas();
+				break;
+			case '3': //Embaralhar pecas
+				embaralharPecas();
+				break;
+			case '6': //Voltar ao menu
+				inicializarJogo();
+				break;
+			default:
+				printf("Em desenvolvimento");
+				break;
+		}
+
+		if(jogadorAtual == 0) //Invertes a vez dos jogadores
+			jogadorAtual = 1;
+		else
+			jogadorAtual = 0;
+	}while(escolha != '6' && escolha > 0 && escolha < 7);
 }
 
 void criarPecas(){
@@ -55,8 +86,8 @@ void embaralharPecas(){ //Embaralha as pecas na mesa.
 	int i;
     	
 	srand(time(NULL));
-	for(i = 0; i < 28; i++){
-		int n = rand() % 28;
+	for(i = 0; i < MAXPECA; i++){
+		int n = rand() % MAXPECA;
 		pecaHolder = mesa[i];
 		mesa[i] = mesa[n];
 		mesa[n] = pecaHolder;
