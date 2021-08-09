@@ -11,7 +11,7 @@ void limparBuffer();
 
 char menuGeral(){ //Menu inicial
     char escolha;
-    printf("1) Iniciar novo jogo\n2) Continuar a Jogar\n3) Salvar Jogo\n4) Carregar Jogo\n5) Regras do Jogo\n6) Sair do Jogo\n-> ");
+    printf("1) Iniciar novo jogo\n2) Continuar a Jogar\n3) Salvar Jogo\n4) Carregar Jogo\n5) Regras do Jogo\n6) Sair do Jogo\n-> Escolha uma opcao: ");
     scanf(" %c", &escolha);
     return escolha;
 }
@@ -29,7 +29,7 @@ void menuJogadores(){ //Menu apos o inicial para escolher quantidade de jogadore
     limparBuffer();
     printf("Nome jogador 1: ");
     fgets(jogadores[0].nome, 30, stdin);
-    if(qtJogadores = 2){
+    if(qtJogadores == 2){
         printf("Nome jogador 2: ");
         fgets(jogadores[1].nome, 30, stdin);
     }
@@ -38,9 +38,9 @@ void menuJogadores(){ //Menu apos o inicial para escolher quantidade de jogadore
 
 char menuJogo(int jogador){ //Menu de acoes dentro do jogo.
     char escolha;
-    printf("Jogo de Domino (PUC-SP)");
+    printf("Jogo de Domino (PUC-SP)\n");
     printf("Vez de %s", jogadores[jogador].nome);
-    printf("1) Mesa de Domino\n2) Ver suas pecas\n3) Embaralhar pecas\n4) Jogar\n5) Comprar pecas\n6) Voltar menu principal");
+    printf("1) Mesa de Domino\n2) Ver suas pecas\n3) Embaralhar pecas\n4) Jogar\n5) Comprar pecas\n6) Voltar menu principal\n-> Escolha uma opcao: ");
     scanf(" %c", &escolha);
     return escolha;
 }
@@ -52,7 +52,7 @@ void mostrarTodasPecas(){ //Mostrar a mesa geral.
 	printf("\n");
 }
 
-void mostrarPecas(int jogador){ //Mostra as pecas de um jogador.
+void mostrarPecas(int jogador){ //Mostra as pecas de um jogador especifico.
     int i;
 	for(i = 0; i < 7; i++)
 		printf("[%d:%d] ", jogadores[jogador].mao[i].lado1, jogadores[jogador].mao[i].lado2);

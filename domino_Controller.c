@@ -17,9 +17,11 @@ void inicializarJogo(){ //Recebe o comando o usuario no menu geral.
         case '1': //Iniciar jogo
         	iniciarJogo();
             break;
-        case '2':
-        case '3':
-            break;
+        case '6': //Voltar ao menu
+			break;
+		default:
+			printf("\nEm desenvolvimento\n");
+			break;
     }
 }
 
@@ -52,7 +54,7 @@ void gameLoop(){
 			inicializarJogo();
 			break;
 		default:
-			printf("Em desenvolvimento");
+			printf("\nEm desenvolvimento\n");
 			break;
 	}
 	gameLoop();
