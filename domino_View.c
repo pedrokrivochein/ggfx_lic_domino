@@ -3,6 +3,7 @@
 //Bibliotecas padrao
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 
 //Declaracoes funcoes

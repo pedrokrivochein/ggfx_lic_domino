@@ -1,6 +1,5 @@
 //Bibliotecas proprias
 
-#include <stdlib.h>
 #include "domino_Model.c"
 #include "domino_View.c"
 
