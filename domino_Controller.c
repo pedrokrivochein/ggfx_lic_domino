@@ -27,7 +27,7 @@ void iniciarJogo(){ //Iniciar o jogo.
 	criarPecas();
 	mostrarTodasPecas();
 	
-	menuJogadores();
+	menuJogadores(); //Preparacao para Etapa 3
 
 	gameLoop();
 	
@@ -39,30 +39,23 @@ void iniciarJogo(){ //Iniciar o jogo.
 }
 
 void gameLoop(){
-	char escolha;
-	do{
-		escolha = menuJogo(jogadorAtual);
+	char escolha = menuJogo(jogadorAtual);
 
-		switch(escolha){
-			case '1': //Mostrar Mesa
-				mostrarTodasPecas();
-				break;
-			case '3': //Embaralhar pecas
-				embaralharPecas();
-				break;
-			case '6': //Voltar ao menu
-				inicializarJogo();
-				break;
-			default:
-				printf("Em desenvolvimento");
-				break;
-		}
-
-		if(jogadorAtual == 0) //Invertes a vez dos jogadores
-			jogadorAtual = 1;
-		else
-			jogadorAtual = 0;
-	}while(escolha != '6' && escolha > 0 && escolha < 7);
+	switch(escolha){
+		case '1': //Mostrar Mesa
+			mostrarTodasPecas();
+			break;
+		case '3': //Embaralhar pecas
+			embaralharPecas();
+			break;
+		case '6': //Voltar ao menu
+			inicializarJogo();
+			break;
+		default:
+			printf("Em desenvolvimento");
+			break;
+	}
+	gameLoop();
 }
 
 void criarPecas(){

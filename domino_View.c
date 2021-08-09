@@ -29,8 +29,10 @@ void menuJogadores(){ //Menu apos o inicial para escolher quantidade de jogadore
     limparBuffer();
     printf("Nome jogador 1: ");
     fgets(jogadores[0].nome, 30, stdin);
-    printf("Nome jogador 2: ");
-    fgets(jogadores[1].nome, 30, stdin);
+    if(qtJogadores = 2){
+        printf("Nome jogador 2: ");
+        fgets(jogadores[1].nome, 30, stdin);
+    }
 }
 
 
