@@ -52,7 +52,7 @@ void gameLoop(){
 			break;
 		case '6': //Voltar ao menu
 			inicializarJogo();
-			break;
+			return;
 		default:
 			printf("\nEm desenvolvimento\n");
 			break;
