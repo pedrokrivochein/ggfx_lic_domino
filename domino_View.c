@@ -10,6 +10,9 @@
 void limparBuffer();
 
 char menuGeral(){ //Menu inicial
+    printf("\n---DOMINO ETAPA 1---\n");
+    printf("\n-----GRUPO GGFX-----\n\n");
+
     char escolha;
     printf("1) Iniciar novo jogo\n2) Continuar a Jogar - EM BREVE\n3) Salvar Jogo - EM BREVE\n4) Carregar Jogo - EM BREVE\n5) Regras do Jogo - EM BREVE\n6) Sair do Jogo\n-> Escolha uma opcao: ");
     scanf(" %c", &escolha);
