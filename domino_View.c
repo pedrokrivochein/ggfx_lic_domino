@@ -58,3 +58,7 @@ void limparBuffer(){ //Limpar buffer do teclado.
     char c;
     while ((c = fgetc(stdin)) != EOF && c != '\n'){}
 }
+
+void menuEmbaralhar(){
+
+}
