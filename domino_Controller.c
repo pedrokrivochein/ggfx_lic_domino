@@ -21,6 +21,7 @@ void inicializarJogo(){ //Recebe o comando o usuario no menu geral.
 			return;
 		default:
 			printf("\nEm desenvolvimento\n");
+			inicializarJogo();
 			break;
     }
 }
