@@ -87,6 +87,17 @@ void mostrarPecasMesa(){ //Mostrar a mesa geral
 		    printf("[%d:%d] ", mesa[i].lado1, mesa[i].lado2);
     }
 	printf("\n");
+
+
+    printf("    _________________________________\n"
+            "   /                                 \\\n"
+            "  /          [%d:%d]     [%d:%d]          \\\n"
+            " /                                     \\\n"
+            "/_______________________________________\\\n"
+            "|_______________________________________|\n"
+            "     |                             |     \n"
+            "     |                             |     \n"
+            "     |                             |     \n", 3,3,4,5);
 }
 
 void mostrarPecasJogador(int jogador){ //Mostra as pecas de um jogador especifico. (Em breve - Etapa 3)
