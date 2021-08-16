@@ -42,27 +42,59 @@ void menuJogadores(){ //Menu apos o inicial para escolher quantidade de jogadore
 
 
 char menuJogo(int jogador){ //Menu de acoes dentro do jogo
-    char escolha;
+    char escolha, count = 0;
     printf("\nJogo de Domino (GGFX)\n");
     printf("Vez de: %s\n", jogadores[jogador].nome);
-    printf("1) Mesa de Domino\n2) Ver suas pecas - EM BREVE\n3) Embaralhar pecas\n4) Organizar as pecas\n5) Jogar - EM BREVE\n6) Comprar pecas - EM BREVE\n7) Voltar menu principal\n-> Escolha uma opcao: ");
+    for (int i = 0; i < MAXPECA; i++){
+        if(pecas[i].status == 4)
+            count ++;
+    }
+    printf("1) Mesa de Domino\n2) Ver suas pecas\n3) JogarE\n4) Comprar pecas (Restante: %d)\n5) Voltar menu principal\n-> Escolha uma opcao: ", count);
     scanf(" %c", &escolha);
     return escolha;
 }
 
-void mostrarTodasPecas(){ //Mostrar a mesa geral
+char menuJogarPeca(int jogador){
+    char escolha;
+
+    int i;
+	for(i = 0; i < MAXPECA; i++){
+        if(mesa[i].status == jogador)
+		    printf("%d: [%d:%d] ",i + 1, mesa[i].lado1, mesa[i].lado2);
+    }
+    printf("\n-> ");
+    scanf(" %c", &escolha);
+    return escolha;
+}
+
+char menuEscolhaLado(){
+    char escolha;
+
+    do{ //Garante que o usuario escolha 1 ou 2
+        printf("Qual lado voce deseja jogar?\n1 - Esquerda\n2 - Direita\n-> ");
+        scanf(" %c", &escolha);
+    } while(escolha != '1' && escolha != '2');
+
+    return escolha;
+}
+
+void mostrarPecasMesa(){ //Mostrar a mesa geral
     printf("\nMesa: ");
 
 	int i;
-	for(i = 0; i < MAXPECA; i++)
-		printf("[%d:%d] ", mesa[i].lado1, mesa[i].lado2);
+	for(i = 0; i < MAXPECA; i++){
+        if(mesa[i].status == 4)
+		    printf("[%d:%d] ", mesa[i].lado1, mesa[i].lado2);
+    }
 	printf("\n");
 }
 
-void mostrarPecas(int jogador){ //Mostra as pecas de um jogador especifico. (Em breve - Etapa 3)
+void mostrarPecasJogador(int jogador){ //Mostra as pecas de um jogador especifico. (Em breve - Etapa 3)
     int i;
-	for(i = 0; i < 7; i++)
-		printf("[%d:%d] ", jogadores[jogador].mao[i].lado1, jogadores[jogador].mao[i].lado2);
+	for(i = 0; i < MAXPECA; i++){
+        if(mesa[i].status == jogador)
+		    printf("[%d:%d] ", mesa[i].lado1, mesa[i].lado2);
+    }
 	printf("\n");
 }
 
