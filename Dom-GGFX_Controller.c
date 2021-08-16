@@ -14,7 +14,7 @@ void jogarPeca();
 int checarValidadeJogar();
 void trocarVezJogador();
 void escolherJogadorInicial();
-
+void comprarPeca();
 void inicializarJogo(){ //Recebe o comando o usuario no menu geral.
     char escolha = menuGeral();
 
@@ -112,7 +112,6 @@ void separarPecas(){ //Separa as pecas entre os jogadores.
 }
 
 void comprarPeca(){
-	int aux;
 	for (int i = 0; i < MAXPECA; i++){
 		if(mesa[i].status == 3){
 			mesa[i].status = jogadorAtual;
@@ -169,6 +168,7 @@ int checarValidadeJogar(tipoPeca peca){
 				case '2':
 					return 1;
 			}
+
 	}
 }
 
