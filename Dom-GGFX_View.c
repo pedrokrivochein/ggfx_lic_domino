@@ -78,10 +78,10 @@ int menuJogarPeca(int jogador){ //Menu para jogar a peca.
     
     printf("\n-> ");
     scanf("%d", &escolha);
-    if(escolha == aux)
+    if(escolha >= aux)
         return 0;
     else
-    return escolha;
+    	return escolha;
 }
 
 char menuEscolhaLado(){ //Menu de escolha para qual lado ele quer jogar a peca.
