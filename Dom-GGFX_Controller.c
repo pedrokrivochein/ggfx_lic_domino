@@ -125,38 +125,41 @@ void jogarPeca(){ //Jogar peca.
 	int i, aux = 1;
 	int escolha = menuJogarPeca(jogadorAtual); //Chama o menu para o jogador escolher qual peca quer jogar.
 
-	for(i = 0; i < MAXPECA; i++){ //Roda pelas pecas e encontra a que o jogador escolheu no menu.
-        if(mesa[i].status == jogadorAtual){
-			if(escolha == aux){
-				break;
-			}
-			aux++;
-		}
-    }
+	if(escolha != 0){
+	    for(i = 0; i < MAXPECA; i++){ //Roda pelas pecas e encontra a que o jogador escolheu no menu.
+	        if(mesa[i].status == jogadorAtual){
+	            if(escolha == aux){
+	                break;
+	            }
+	            aux++;
+	        }
+	    }
 
-	int checagem = checarValidadeJogar(mesa[i]); //Checa se a peca pode ser jogada.
-	if(checagem != -1){ //A peca pode ser jogada.
-		if(mesa[i].lado1 == ponta[checagem]){ //Faz a checagem em qual ponta a peca e valida e vira ela de acordo.
-			ponta[checagem] = mesa[i].lado2;
-			if(checagem == 1)
-				ponta[3] = mesa[i].lado1;
-			else
-				ponta[2] = mesa[i].lado1;
-		}else{
-			ponta[checagem] = mesa[i].lado1;
-			if(checagem == 1)
-				ponta[3] = mesa[i].lado2;
-			else
-				ponta[2] = mesa[i].lado2;
-		}
-		mesa[i].status = 3; //A peca vira da mesa.
-		
-		printf("\n\nJogador %s jogou a peca: [%d:%d]\n\n", jogadores[jogadorAtual].nome, mesa[i].lado1, mesa[i].lado2);
-		
-		trocarVezJogador(); //Troca a vez dos jogadores.
-	}else{ //Caso a peca nao possa ser jogada, avisa o jogador.
-		printf("Essa peca nao pode ser jogada.\n"); //Peca invalida
+	    int checagem = checarValidadeJogar(mesa[i]); //Checa se a peca pode ser jogada.
+	    if(checagem != -1){ //A peca pode ser jogada.
+	        if(mesa[i].lado1 == ponta[checagem]){ //Faz a checagem em qual ponta a peca e valida e vira ela de acordo.
+	            ponta[checagem] = mesa[i].lado2;
+	            if(checagem == 1)
+	                ponta[3] = mesa[i].lado1;
+	            else
+	                ponta[2] = mesa[i].lado1;
+	        }else{
+	            ponta[checagem] = mesa[i].lado1;
+	            if(checagem == 1)
+	                ponta[3] = mesa[i].lado2;
+	            else
+	                ponta[2] = mesa[i].lado2;
+	        }
+	        mesa[i].status = 3; //A peca vira da mesa.
+
+	        printf("\n\nJogador %s jogou a peca: [%d:%d]\n\n", jogadores[jogadorAtual].nome, mesa[i].lado1, mesa[i].lado2);
+
+	        trocarVezJogador(); //Troca a vez dos jogadores.
+	    }else{ //Caso a peca nao possa ser jogada, avisa o jogador.
+	        printf("Essa peca nao pode ser jogada.\n"); //Peca invalida
+	    }
 	}
+
 
 }
 

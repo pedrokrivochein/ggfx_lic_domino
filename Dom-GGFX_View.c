@@ -73,11 +73,14 @@ int menuJogarPeca(int jogador){ //Menu para jogar a peca.
 		    aux++;
 		}
     }
-    
+    printf("(%d):Voltar para o menu", aux);
     limparBuffer();
     
     printf("\n-> ");
     scanf("%d", &escolha);
+    if(escolha == aux)
+        return 0;
+    else
     return escolha;
 }
 
