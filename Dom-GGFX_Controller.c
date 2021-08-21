@@ -10,11 +10,11 @@ void gameLoop(); //Loop do jogo (Menu de acoes do jogador)
 void criarPecas(); //Gera as pecas e as coloca na mesa
 void embaralharPecas(); //Embaralha as pecas da mesa
 void separarPecas(); //Separar as pecas
-void jogarPeca();
-int checarValidadeJogar();
-void trocarVezJogador();
-void escolherJogadorInicial();
-void comprarPeca();
+void jogarPeca(); //Inicia o processo para o jogador jogar uma peca
+int checarValidadeJogar(); //Checa a validade da peca que o jogador escolheu para ser jogada.
+void trocarVezJogador(); //Troca a vez dos jogadores.
+void escolherJogadorInicial(); //Escolhe o jogador que inicia com base em suas pecas.
+void comprarPeca(); //Comprar uma peca.
 void inicializarJogo(){ //Recebe o comando o usuario no menu geral.
     char escolha = menuGeral();
 
@@ -33,14 +33,13 @@ void inicializarJogo(){ //Recebe o comando o usuario no menu geral.
 
 void iniciarJogo(){ //Iniciar o jogo.
 	criarPecas(); //Gera as pecas da mesa.
-	embaralharPecas(); //Embaralha as pecas.
-	separarPecas(); //Separar as pecas.
-
-	escolherJogadorInicial(); //Escolhe o jogador que vai comecar.
-
-	mostrarPecasMesa(); //Mostra as pecas da mesa.
 	
-	menuJogadores(); //Chama o menu do nome do jogador.
+	menuJogadores(); //Chama o menu para escolher a quantidade de jogadores e seus nomes.
+	
+	embaralharPecas(); //Embaralha as pecas.
+	separarPecas(); //Separar as pecas entre os jogadores.
+
+	escolherJogadorInicial(); //Escolhe o jogador que vai comecar com base em suas pecas.
 
 	gameLoop(); //Loop menu jogador
 }
@@ -52,13 +51,13 @@ void gameLoop(){ //Loop do jogo (Menu de acoes do jogador)
 		case '1': //Mostrar Mesa
 			mostrarPecasMesa();
 			break;
-		case '2':
+		case '2': //Mostras pecas do jogador
 			mostrarPecasJogador(jogadorAtual);
 			break;
-		case '3':
+		case '3': //Jogar uma peca
 			jogarPeca();
 			break;
-		case '4':
+		case '4': //Comprar uma peca
 			comprarPeca();
 			break;
 		case '5': //Voltar ao menu
@@ -78,7 +77,7 @@ void criarPecas(){
         for(j = i; j <= 6; j++){
         	pecas[aux].lado1 = i;
             pecas[aux].lado2 = j;
-			pecas[aux].status = 3;
+			pecas[aux].status = 2;
             aux++;
         }
     }
@@ -107,24 +106,26 @@ void separarPecas(){ //Separa as pecas entre os jogadores.
 		if(i % 7 == 0)
 			aux++;
 
-		mesa[i].status = aux;
+		mesa[i].status = aux - 1;
 	}
 }
 
-void comprarPeca(){
-	for (int i = 0; i < MAXPECA; i++){
-		if(mesa[i].status == 3){
+void comprarPeca(){ //Comprar pecas
+	int i;
+	for (i = 0; i < MAXPECA; i++){ //Roda por todas as pecas, a primeira que estiver disponivel para compra vira do jogador.
+		if(mesa[i].status == 2){
 			mesa[i].status = jogadorAtual;
+			printf("\nPeca comprada: [%d:%d]\n", mesa[i].lado1, mesa[i].lado2);
 			return;
 		}
 	}	
 }
 
-void jogarPeca(){
+void jogarPeca(){ //Jogar peca.
 	int i, aux = 1;
-	char escolha = menuJogarPeca(jogadorAtual);
+	int escolha = menuJogarPeca(jogadorAtual); //Chama o menu para o jogador escolher qual peca quer jogar.
 
-	for(i = 0; i < MAXPECA; i++){
+	for(i = 0; i < MAXPECA; i++){ //Roda pelas pecas e encontra a que o jogador escolheu no menu.
         if(mesa[i].status == jogadorAtual){
 			if(escolha == aux){
 				break;
@@ -133,35 +134,46 @@ void jogarPeca(){
 		}
     }
 
-	int checagem = checarValidadeJogar(mesa[i]);
-	if(checagem != -1){
-		if(mesa[i].lado1 == ponta[checagem]){
+	int checagem = checarValidadeJogar(mesa[i]); //Checa se a peca pode ser jogada.
+	if(checagem != -1){ //A peca pode ser jogada.
+		if(mesa[i].lado1 == ponta[checagem]){ //Faz a checagem em qual ponta a peca e valida e vira ela de acordo.
 			ponta[checagem] = mesa[i].lado2;
+			if(checagem == 1)
+				ponta[3] = mesa[i].lado1;
+			else
+				ponta[2] = mesa[i].lado1;
 		}else{
 			ponta[checagem] = mesa[i].lado1;
+			if(checagem == 1)
+				ponta[3] = mesa[i].lado2;
+			else
+				ponta[2] = mesa[i].lado2;
 		}
-		mesa[i].status = 4;
-		trocarVezJogador();
-	}else{
-		printf("Peca nao pode ser colocada ainda :C"); //Peca invalida
+		mesa[i].status = 3; //A peca vira da mesa.
+		
+		printf("\n\nJogador %s jogou a peca: [%d:%d]\n\n", jogadores[jogadorAtual].nome, mesa[i].lado1, mesa[i].lado2);
+		
+		trocarVezJogador(); //Troca a vez dos jogadores.
+	}else{ //Caso a peca nao possa ser jogada, avisa o jogador.
+		printf("Essa peca nao pode ser jogada.\n"); //Peca invalida
 	}
 
 }
 
-int checarValidadeJogar(tipoPeca peca){
+int checarValidadeJogar(tipoPeca peca){ //Checa a validade de uma peca ser jogada.
 	char i, aux = 0, valido = 0;
-	for(i = 0; i < 2; i++){
+	for(i = 0; i < 2; i++){ //Checa se nas pontas existe uma peca de mesmo valor.
 		if(ponta[i] == peca.lado1 || ponta[i] == peca.lado2){
 			aux++;
 			valido = i;
 		}
 	}
-	switch(aux){
+	switch(aux){ //Verifica qual lado esta disponivel.
 		case 0:
 			return -1;
 		case 1:
 			return valido;
-		case 2:
+		case 2: //Se dois lados estao disponiveis, da ao jogador a possibilidade de escolher qual lado quer jogar.
 			switch (menuEscolhaLado()){//Perguntar qual lado
 				case '1':
 					return 0;
@@ -172,25 +184,49 @@ int checarValidadeJogar(tipoPeca peca){
 	}
 }
 
-void escolherJogadorInicial(){
-	int i, max = -1, jogador;
+void escolherJogadorInicial(){ //Roda pelas pecas dos jogadores e encontra a peca inicial.
+	int i, max = -1, pecaAux;
 	for(i = 0; i < 14; i++){ //Checa quem tem a dupla maior
 		if(mesa[i].lado1 == mesa[i].lado2){
 			if(mesa[i].lado1 > max){
 				max = mesa[i].lado1;
-				jogador = mesa[i].status;
+				pecaAux = i;
 			}
 		}
 	}
-
-	/*
-	Terminar
-	Jogar a peca se encontrou
-	Checar maior peca se nao encontrou
-	*/
+	
+	if(pecaAux != -1){ //Caso tenha encontrado uma peca dupla o jogador inicia com essa peca.
+		printf("\n\nJogador %s iniciou com a peca: [%d:%d]\n\n", jogadores[mesa[pecaAux].status].nome, mesa[pecaAux].lado1, mesa[pecaAux].lado1);
+		jogadorAtual = mesa[pecaAux].status; //Jogador atual vira o que possui a peca.
+		mesa[pecaAux].status = 3; //Ele joga a peca na mesa.
+		trocarVezJogador(); //Troca a vez do jogador.
+		
+		
+		for(i = 0; i < 4; i++) ponta[i] = max; //Adiciona as pecas da ponta.
+		return;
+	}
+	
+	max = -1;
+	for(i = 0; i < 14; i++){ //Checa quem tem a maior peca somando os dois lados.
+		if(mesa[i].lado1 + mesa[i].lado2 > max){
+			max = mesa[i].lado1;
+			pecaAux = i;
+		}
+	}
+	
+	printf("\n\nJogador %s iniciou com a peca: [%d:%d]\n\n", jogadores[mesa[pecaAux].status].nome, mesa[pecaAux].lado1, mesa[pecaAux].lado2);
+	jogadorAtual = mesa[pecaAux].status; //Jogador atual vira o que possui a peca.
+	mesa[pecaAux].status = 3; //Ele joga a peca na mesa.
+	trocarVezJogador(); //Troca a vez do jogador.
+	
+	//Adiciona as pecas na ponta.
+	ponta[0] = mesa[pecaAux].lado1;
+	ponta[2] = mesa[pecaAux].lado2;
+	ponta[1] = mesa[pecaAux].lado2;
+	ponta[3] = mesa[pecaAux].lado1;
 }
 
-void trocarVezJogador(){
+void trocarVezJogador(){ //Troca a vez entre os jogadores.
 	if(jogadorAtual == 0)
 		jogadorAtual = 1;
 	else

@@ -4,13 +4,13 @@
 
 typedef struct peca{
     int lado1, lado2;
-    int status; //0 - Jogador 1 | 1 - Jogador 2 | 3 - Compra | 4 - Mesa
+    int status; //0 - Jogador 1 | 1 - Jogador 2 | 2 - Compra | 3 - Mesa
 } tipoPeca;
 
 tipoPeca pecas[MAXPECA]; //Pecas geral
 tipoPeca mesa[MAXPECA]; //Mesa do jogo
 
-int ponta[2]; //Pecas na ponta.
+int ponta[4]; //Pecas na ponta. Ponta esquerda [0:2] | Ponta direita [3:1]
 
 typedef struct jogador{
     char nome[100];
