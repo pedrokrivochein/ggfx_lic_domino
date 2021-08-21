@@ -11,7 +11,7 @@ void criarPecas(); //Gera as pecas e as coloca na mesa
 void embaralharPecas(); //Embaralha as pecas da mesa
 void separarPecas(); //Separar as pecas
 void jogarPeca(); //Inicia o processo para o jogador jogar uma peca
-int checarValidadeJogar(); //Checa a validade da peca que o jogador escolheu para ser jogada.
+int checarValidadeJogar(tipoPeca peca); //Checa a validade da peca que o jogador escolheu para ser jogada.
 void trocarVezJogador(); //Troca a vez dos jogadores.
 void escolherJogadorInicial(); //Escolhe o jogador que inicia com base em suas pecas.
 void comprarPeca(); //Comprar uma peca.
