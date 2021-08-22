@@ -11,7 +11,7 @@
 void limparBuffer(); //Limpa o buffer do teclado.
 
 char menuGeral(){ //Menu inicial
-    printf("\n---DOMINO ETAPA 1---\n");
+    printf("\n---DOMINO ETAPA 3---\n");
     printf("\n-----GRUPO GGFX-----\n\n");
 
     char escolha;
