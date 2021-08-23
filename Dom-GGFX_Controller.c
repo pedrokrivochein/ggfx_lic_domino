@@ -45,24 +45,19 @@ void iniciarJogo(){ //Iniciar o jogo.
 }
 
 void gameLoop(){ //Loop do jogo (Menu de acoes do jogador)
-	char escolha = menuJogo(jogadorAtual);
-
+    mostrarPecasMesa();
+    mostrarPecasJogador(jogadorAtual);
+    char escolha = menuJogo(jogadorAtual);
 	switch(escolha){
-		case '1': //Mostrar Mesa
-			mostrarPecasMesa();
+	    case '1': //Jogar uma peca
+		jogarPeca();
 			break;
-		case '2': //Mostras pecas do jogador
-			mostrarPecasJogador(jogadorAtual);
+		case '2': //Comprar pecas
+		comprarPeca();
 			break;
-		case '3': //Jogar uma peca
-			jogarPeca();
-			break;
-		case '4': //Comprar uma peca
-			comprarPeca();
-			break;
-		case '5': //Voltar ao menu
-			inicializarJogo();
-			return;
+			case '3': //Voltar ao menu
+		inicializarJogo();
+		return;
 		default:
 			printf("\nEm desenvolvimento\n");
 			break;

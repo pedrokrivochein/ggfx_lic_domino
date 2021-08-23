@@ -57,14 +57,13 @@ char menuJogo(int jogador){ //Menu de acoes dentro do jogo
             count++;
     }
     
-    printf("1) Mesa de Domino\n2) Ver suas pecas\n3) Jogar\n4) Comprar pecas (Restante: %d)\n5) Voltar menu principal\n-> Escolha uma opcao: ", count);
+    printf("\n1) Jogar\n2) Comprar pecas (Restante: %d)\n3) Voltar menu principal\n-> Escolha uma opcao: ", count);
     scanf(" %c", &escolha);
     return escolha;
 }
 
 int menuJogarPeca(int jogador){ //Menu para jogar a peca.
     int escolha;
-
     int i, aux = 1;
     printf("\n");
 	for(i = 0; i < MAXPECA; i++){ //Roda pelas pecas do jogador e as numera para que ele possa escolher entre uma.
@@ -120,7 +119,7 @@ void mostrarPecasMesa(){ //Mostrar a mesa geral
 
 void mostrarPecasJogador(int jogador){ //Mostra as pecas de um jogador especifico.
     int i;
-    printf("\nPecas: ");
+    printf("\nPecas do jogador %s: ", jogadores[jogador].nome);
 	for(i = 0; i < MAXPECA; i++){
         if(mesa[i].status == jogador)
 		    printf("[%d:%d] ", mesa[i].lado1, mesa[i].lado2);
