@@ -95,26 +95,14 @@ char menuEscolhaLado(){ //Menu de escolha para qual lado ele quer jogar a peca.
 }
 
 void mostrarPecasMesa(){ //Mostrar a mesa geral
-    printf("\nPecas jogadas: ");
+    printf("\nMesa do jogo: ");
 
 	int i;
 	for(i = 0; i < MAXPECA; i++){ //Mostra todas as pecas na mesa.
-        if(mesa[i].status == 3)
-		    printf("[%d:%d] ", mesa[i].lado1, mesa[i].lado2);
+        if(mesaOrdenada[i].status != -1)
+		    printf("[%d:%d] ", mesaOrdenada[i].lado1, mesaOrdenada[i].lado2);
     }
 	printf("\n");
-	
-	printf("Pecas na ponta:\n"); //Mostra so as pecas da ponta.
-
-    printf("    _________________________________\n"
-            "   /                                 \\\n"
-            "  /          [%d:%d]     [%d:%d]          \\\n"
-            " /                                     \\\n"
-            "/_______________________________________\\\n"
-            "|_______________________________________|\n"
-            "     |                             |     \n"
-            "     |                             |     \n"
-            "     |                             |     \n", ponta[0], ponta[2], ponta[3], ponta[1]);
 }
 
 void mostrarPecasJogador(int jogador){ //Mostra as pecas de um jogador especifico.

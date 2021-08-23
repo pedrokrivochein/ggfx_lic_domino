@@ -79,6 +79,11 @@ void criarPecas(){
     
     for(i = 0; i < 28; i++) //Adiciona essas pecas na mesa.
     	mesa[i] = pecas[i];
+    
+    tipoPeca pecaHolder;
+    pecaHolder.status = -1;
+    for(i = 0; i < 28; i++) //Adiciona essas pecas na mesa.
+    	mesaOrdenada[i].status = -1;
 }
 
 void embaralharPecas(){ //Embaralha as pecas na mesa.
@@ -132,23 +137,31 @@ void jogarPeca(){ //Jogar peca.
 
 	    int checagem = checarValidadeJogar(mesa[i]); //Checa se a peca pode ser jogada.
 	    if(checagem != -1){ //A peca pode ser jogada.
+	    	tipoPeca pecaAux;
 	        if(mesa[i].lado1 == ponta[checagem]){ //Faz a checagem em qual ponta a peca e valida e vira ela de acordo.
-	            ponta[checagem] = mesa[i].lado2;
-	            if(checagem == 1)
-	                ponta[3] = mesa[i].lado1;
-	            else
-	                ponta[2] = mesa[i].lado1;
+	        	ponta[checagem] = mesa[i].lado2;
+				if(checagem == 1){
+	                pecaAux.lado2 = mesa[i].lado2;
+	                pecaAux.lado1 = mesa[i].lado1;
+	            }else{
+	                pecaAux.lado1 = mesa[i].lado2;
+	                pecaAux.lado2 = mesa[i].lado1;
+	            }
 	        }else{
-	            ponta[checagem] = mesa[i].lado1;
-	            if(checagem == 1)
-	                ponta[3] = mesa[i].lado2;
-	            else
-	                ponta[2] = mesa[i].lado2;
+	        	ponta[checagem] = mesa[i].lado1;
+	            if(checagem == 1){
+	                pecaAux.lado2 = mesa[i].lado1;
+	                pecaAux.lado1 = mesa[i].lado2;
+	            }else{
+	                pecaAux.lado1 = mesa[i].lado1;
+	                pecaAux.lado2 = mesa[i].lado2;
+	            }
 	        }
+	        adicionarPecaMesaOrdenada(checagem, pecaAux);
 	        mesa[i].status = 3; //A peca vira da mesa.
 
 	        printf("\n\nJogador %s jogou a peca: [%d:%d]\n\n", jogadores[jogadorAtual].nome, mesa[i].lado1, mesa[i].lado2);
-
+			
 	        trocarVezJogador(); //Troca a vez dos jogadores.
 	    }else{ //Caso a peca nao possa ser jogada, avisa o jogador.
 	        printf("Essa peca nao pode ser jogada.\n"); //Peca invalida
@@ -200,7 +213,11 @@ void escolherJogadorInicial(){ //Roda pelas pecas dos jogadores e encontra a pec
 		trocarVezJogador(); //Troca a vez do jogador.
 		
 		
-		for(i = 0; i < 4; i++) ponta[i] = max; //Adiciona as pecas da ponta.
+		for(i = 0; i < 2; i++) ponta[i] = max; //Adiciona as pecas da ponta.
+		tipoPeca pecaHolder;
+		pecaHolder.lado1 = max;
+		pecaHolder.lado2 = max;
+		adicionarPecaMesaOrdenada(0, mesa[pecaAux]);
 		return;
 	}
 	
@@ -219,9 +236,8 @@ void escolherJogadorInicial(){ //Roda pelas pecas dos jogadores e encontra a pec
 	
 	//Adiciona as pecas na ponta.
 	ponta[0] = mesa[pecaAux].lado1;
-	ponta[2] = mesa[pecaAux].lado2;
 	ponta[1] = mesa[pecaAux].lado2;
-	ponta[3] = mesa[pecaAux].lado1;
+	adicionarPecaMesaOrdenada(0, mesa[pecaAux]);
 }
 
 void trocarVezJogador(){ //Troca a vez entre os jogadores.
@@ -229,4 +245,26 @@ void trocarVezJogador(){ //Troca a vez entre os jogadores.
 		jogadorAtual = 1;
 	else
 		jogadorAtual = 0;
+}
+
+void adicionarPecaMesaOrdenada(int lado, tipoPeca peca){
+	int i, aux = 0;
+	if(lado == 0){
+		tipoPeca aux;
+		for(i = 26; i >= 0; i--){
+			mesaOrdenada[i + 1] = mesaOrdenada[i];
+		}
+		
+		mesaOrdenada[0] = peca;
+		
+	}else{
+		for(i = 0; i < 28; i++){
+			if(mesaOrdenada[i].status == -1){
+				mesaOrdenada[i] = peca;
+				break;
+			}
+		}
+	}
+	
+	pecasJogadas++; //Aumenta o numero de pecas jogadas.
 }

@@ -10,7 +10,10 @@ typedef struct peca{
 tipoPeca pecas[MAXPECA]; //Pecas geral
 tipoPeca mesa[MAXPECA]; //Mesa do jogo
 
-int ponta[4]; //Pecas na ponta. Ponta esquerda [0:2] | Ponta direita [3:1]
+int pecasJogadas = 0; //Numero de pecas jogadas
+tipoPeca mesaOrdenada[MAXPECA]; //Mesa do jogo ordenada
+
+int ponta[2]; //Pecas na ponta. Ponta esquerda [0:2] | Ponta direita [3:1]
 
 typedef struct jogador{
     char nome[100];
