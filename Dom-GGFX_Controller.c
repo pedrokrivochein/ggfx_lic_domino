@@ -250,9 +250,8 @@ void trocarVezJogador(){ //Troca a vez entre os jogadores.
 }
 
 void adicionarPecaMesaOrdenada(int lado, tipoPeca peca){
-	int i, aux = 0;
+	int i;
 	if(lado == 0){
-		tipoPeca aux;
 		for(i = 26; i >= 0; i--){
 			mesaOrdenada[i + 1] = mesaOrdenada[i];
 		}
