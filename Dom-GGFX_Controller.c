@@ -162,7 +162,7 @@ void jogarPeca(){ //Jogar peca.
 	        adicionarPecaMesaOrdenada(checagem, pecaAux);
 	        mesa[i].status = 3; //A peca vira da mesa.
 
-	        printf("\n\nJogador %s jogou a peca: [%d:%d]\n\n", jogadores[jogadorAtual].nome, mesa[i].lado1, mesa[i].lado2);
+	        printf("\n\n%s jogou a peca: [%d:%d]\n\n", jogadores[jogadorAtual].nome, mesa[i].lado1, mesa[i].lado2);
 			
 	        trocarVezJogador(); //Troca a vez dos jogadores.
 	    }else{ //Caso a peca nao possa ser jogada, avisa o jogador.
@@ -209,7 +209,7 @@ void escolherJogadorInicial(){ //Roda pelas pecas dos jogadores e encontra a pec
 	}
 	
 	if(pecaAux != -1){ //Caso tenha encontrado uma peca dupla o jogador inicia com essa peca.
-		printf("\n\nJogador %s iniciou com a peca: [%d:%d]\n\n", jogadores[mesa[pecaAux].status].nome, mesa[pecaAux].lado1, mesa[pecaAux].lado1);
+		printf("\n\n%s iniciou com a peca: [%d:%d]\n\n", jogadores[mesa[pecaAux].status].nome, mesa[pecaAux].lado1, mesa[pecaAux].lado1);
 		jogadorAtual = mesa[pecaAux].status; //Jogador atual vira o que possui a peca.
 		mesa[pecaAux].status = 3; //Ele joga a peca na mesa.
 		trocarVezJogador(); //Troca a vez do jogador.

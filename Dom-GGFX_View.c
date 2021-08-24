@@ -147,7 +147,7 @@ void mostrarPecasMesa(){ //Mostrar a mesa geral
 
 void mostrarPecasJogador(int jogador){ //Mostra as pecas de um jogador especifico.
     int i;
-    printf("\nPecas do jogador %s: ", jogadores[jogador].nome);
+    printf("\nPecas de %s: ", jogadores[jogador].nome);
 	for(i = 0; i < MAXPECA; i++){
         if(mesa[i].status == jogador)
 		    printf("[%d:%d] ", mesa[i].lado1, mesa[i].lado2);
