@@ -125,10 +125,10 @@ void comprarPeca(){ //Comprar pecas
 
 void jogarPeca(){ //Jogar peca.
 	int i, aux = 1;
-	int escolha = menuJogarPeca(jogadorAtual); //Chama o menu para o jogador escolher qual peca quer jogar.
+	int escolha = menuJogarPeca(jogadorAtual); //Chama o menu para o jogador escolher qual peca quer jogar
 
 	if(escolha != 0){
-	    for(i = 0; i < MAXPECA; i++){ //Roda pelas pecas e encontra a que o jogador escolheu no menu.
+	    for(i = 0; i < MAXPECA; i++){ //Roda pelas pecas e encontra a que o jogador escolheu no menu
 	        if(mesa[i].status == jogadorAtual){
 	            if(escolha == aux){
 	                break;
@@ -142,19 +142,19 @@ void jogarPeca(){ //Jogar peca.
 	    	tipoPeca pecaAux;
 	        if(mesa[i].lado1 == ponta[checagem]){ //Faz a checagem em qual ponta a peca e valida e vira ela de acordo.
 	        	ponta[checagem] = mesa[i].lado2;
-				if(checagem == 1){
+				if(checagem == 1){ //Jogar no lado direito
 	                pecaAux.lado2 = mesa[i].lado2;
 	                pecaAux.lado1 = mesa[i].lado1;
-	            }else{
+	            }else{ //Jogar no lado esquerdo
 	                pecaAux.lado1 = mesa[i].lado2;
 	                pecaAux.lado2 = mesa[i].lado1;
 	            }
 	        }else{
 	        	ponta[checagem] = mesa[i].lado1;
-	            if(checagem == 1){
+	            if(checagem == 1){ //Jogador no lado direito
 	                pecaAux.lado2 = mesa[i].lado1;
 	                pecaAux.lado1 = mesa[i].lado2;
-	            }else{
+	            }else{ //Jogar no lado esquerdo
 	                pecaAux.lado1 = mesa[i].lado1;
 	                pecaAux.lado2 = mesa[i].lado2;
 	            }
@@ -249,17 +249,17 @@ void trocarVezJogador(){ //Troca a vez entre os jogadores.
 		jogadorAtual = 0;
 }
 
-void adicionarPecaMesaOrdenada(int lado, tipoPeca peca){
+void adicionarPecaMesaOrdenada(int lado, tipoPeca peca){ //Adicionar uma peca a mesa ordenada.
 	int i;
-	if(lado == 0){
-		for(i = 26; i >= 0; i--){
+	if(lado == 0){ //Jogar na esquerda
+		for(i = 26; i >= 0; i--){ //Joga todas as pecas para uma posicao na frente
 			mesaOrdenada[i + 1] = mesaOrdenada[i];
 		}
 		
-		mesaOrdenada[0] = peca;
+		mesaOrdenada[0] = peca; //Coloca a peca na primeira posicao
 		
 	}else{
-		for(i = 0; i < 28; i++){
+		for(i = 0; i < 28; i++){ //Encontra um lugar vazio no final da lista e coloca a peca
 			if(mesaOrdenada[i].status == -1){
 				mesaOrdenada[i] = peca;
 				break;
