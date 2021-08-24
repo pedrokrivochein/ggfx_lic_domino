@@ -16,6 +16,7 @@ void trocarVezJogador(); //Troca a vez dos jogadores.
 void escolherJogadorInicial(); //Escolhe o jogador que inicia com base em suas pecas.
 void comprarPeca(); //Comprar uma peca.
 void adicionarPecaMesaOrdenada(int lado, tipoPeca peca); //Adiciona os pecas na mesa.
+void divisoria();//cria divisorias entre as jogadas.
 
 void inicializarJogo(){ //Recebe o comando o usuario no menu geral.
     char escolha = menuGeral();
@@ -118,9 +119,10 @@ void comprarPeca(){ //Comprar pecas
 		if(mesa[i].status == 2){
 			mesa[i].status = jogadorAtual;
 			printf("\nPeca comprada: [%d:%d]\n", mesa[i].lado1, mesa[i].lado2);
+			divisoria();
 			return;
 		}
-	}	
+	}
 }
 
 void jogarPeca(){ //Jogar peca.
@@ -169,8 +171,7 @@ void jogarPeca(){ //Jogar peca.
 	        printf("Essa peca nao pode ser jogada.\n"); //Peca invalida
 	    }
 	}
-
-
+	divisoria();
 }
 
 int checarValidadeJogar(tipoPeca peca){ //Checa a validade de uma peca ser jogada.
@@ -209,7 +210,8 @@ void escolherJogadorInicial(){ //Roda pelas pecas dos jogadores e encontra a pec
 	}
 	
 	if(pecaAux != -1){ //Caso tenha encontrado uma peca dupla o jogador inicia com essa peca.
-		printf("\n\n%s iniciou com a peca: [%d:%d]\n\n", jogadores[mesa[pecaAux].status].nome, mesa[pecaAux].lado1, mesa[pecaAux].lado1);
+		divisoria();
+		printf("\n%s iniciou com a peca: [%d:%d]\n\n", jogadores[mesa[pecaAux].status].nome, mesa[pecaAux].lado1, mesa[pecaAux].lado1);
 		jogadorAtual = mesa[pecaAux].status; //Jogador atual vira o que possui a peca.
 		mesa[pecaAux].status = 3; //Ele joga a peca na mesa.
 		trocarVezJogador(); //Troca a vez do jogador.
@@ -268,4 +270,12 @@ void adicionarPecaMesaOrdenada(int lado, tipoPeca peca){ //Adicionar uma peca a 
 	}
 	
 	pecasJogadas++; //Aumenta o numero de pecas jogadas.
+}
+
+void divisoria(){
+	int k;
+	printf("\n-=-=-=-=-=-=-=-=-=-=-");
+	for(k=0; k < pecasJogadas; k++)
+        printf("=-=-=-");
+	printf("\n");
 }
