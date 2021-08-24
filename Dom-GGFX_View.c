@@ -157,14 +157,13 @@ void mostrarPecasJogador(int jogador){ //Mostra as pecas de um jogador especific
 	printf("\n");
 }
 
-void divisoria(){
-	int k;
-	printf("\n-=-=-=-=-=-=-=-=-=-=-");
-	if(pecasJogadas == 0)
-		printf("=-=-=-");
-	for(k = 0; k < pecasJogadas; k++)
-        printf("=-=-=-");
-	printf("\n");
+void divisoria(){ //Monta as divisorias entre cada jogada
+    int k;
+    printf("\n-=-=-=-=-=-=-=-=-=-=-");
+    if(pecasJogadas != 0)
+        for(k = 1; k < pecasJogadas; k++)
+            printf("=-=-=-");
+    printf("\n");
 }
 
 void limparBuffer(){ //Limpar buffer do teclado.

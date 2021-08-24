@@ -163,7 +163,7 @@ void jogarPeca(){ //Jogar peca.
 	        adicionarPecaMesaOrdenada(checagem, pecaAux);
 	        mesa[i].status = 3; //A peca vira da mesa.
 
-	        printf("\n\n%s jogou a peca: [%d:%d]\n\n", jogadores[jogadorAtual].nome, mesa[i].lado1, mesa[i].lado2);
+	        printf("\n\n%s jogou a peca: [%d:%d]\n", jogadores[jogadorAtual].nome, mesa[i].lado1, mesa[i].lado2);
 			
 	        trocarVezJogador(); //Troca a vez dos jogadores.
 	    }else{ //Caso a peca nao possa ser jogada, avisa o jogador.
