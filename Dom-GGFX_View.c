@@ -157,6 +157,16 @@ void mostrarPecasJogador(int jogador){ //Mostra as pecas de um jogador especific
 	printf("\n");
 }
 
+void divisoria(){
+	int k;
+	printf("\n-=-=-=-=-=-=-=-=-=-=-");
+	if(pecasJogadas == 0)
+		printf("=-=-=-");
+	for(k = 0; k < pecasJogadas; k++)
+        printf("=-=-=-");
+	printf("\n");
+}
+
 void limparBuffer(){ //Limpar buffer do teclado.
     char c;
     while ((c = fgetc(stdin)) != EOF && c != '\n'){}
