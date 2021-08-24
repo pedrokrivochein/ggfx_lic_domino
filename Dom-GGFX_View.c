@@ -102,45 +102,47 @@ void mostrarPecasMesa(){ //Mostrar a mesa geral
 	printf("\n");
 
     printf("    ________");
-    for(i=0; i < pecasJogadas; i++){
+    
+    for(i=0; i < pecasJogadas; i++)
         printf("_____");
-    }
+    
     printf("\n   /        ");
-    for(i=0; i < pecasJogadas; i++){
+    
+    for(i=0; i < pecasJogadas; i++)
         printf("     ");
-    }
+        
     printf("\\");
-
     printf("\n  /     "); 
+    
     for(i = 0; i < MAXPECA; i++){ //Mostra todas as pecas na mesa.
         if(mesaOrdenada[i].status != -1)
 		    printf("[%d:%d]", mesaOrdenada[i].lado1, mesaOrdenada[i].lado2);
     }
+    
     printf("     \\");
 
     printf("\n /            ");
-    for(i=0; i < pecasJogadas; i++){
+    for(i=0; i < pecasJogadas; i++)
         printf("     ");
-    }
+        
     printf("\\");
 
     printf("\n/______________");
-    for(i=0; i < pecasJogadas; i++){
+    for(i=0; i < pecasJogadas; i++)
         printf("_____");
-    }
+        
     printf("\\");
 
     printf("\n|______________");
-    for(i=0; i < pecasJogadas; i++){
+    for(i=0; i < pecasJogadas; i++)
         printf("_____");
-    }
+        
     printf("|");
     
     for(j = 0; j < 3; j++){
         printf("\n     |    ");
-        for(i=0; i < pecasJogadas; i++){
+        for(i=0; i < pecasJogadas; i++)
             printf("     ");
-        }
         printf("|     ");
     }
 }
