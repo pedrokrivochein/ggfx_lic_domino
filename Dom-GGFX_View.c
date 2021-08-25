@@ -52,12 +52,10 @@ char menuJogo(int jogador){ //Menu de acoes dentro do jogo
     printf("\nJogo de Domino (GGFX)\n");
     printf("Vez de: %s\n", jogadores[jogador].nome);
     
-    for (i = 0; i < MAXPECA; i++){ //Roda pelas pecas e ve quantas estao disponiveis para compra.
-        if(mesa[i].status == 2)
-            count++;
-    }
-    
-    printf("\n1) Jogar\n2) Comprar pecas (Restante: %d)\n3) Voltar menu principal\n-> Escolha uma opcao: ", count);
+    if(pecasParaCompra > 0)
+        printf("\n1) Jogar\n2) Comprar pecas (Restante: %d)\n3) Voltar menu principal\n-> Escolha uma opcao: ", pecasParaCompra);
+    else
+        printf("\n1) Jogar\n2) Passar\n3) Voltar menu principal\n-> Escolha uma opcao: ");
     scanf(" %c", &escolha);
     return escolha;
 }

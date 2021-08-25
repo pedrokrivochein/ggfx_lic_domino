@@ -11,6 +11,7 @@ tipoPeca pecas[MAXPECA]; //Pecas geral
 tipoPeca mesa[MAXPECA]; //Mesa do jogo
 
 int pecasJogadas = 0; //Numero de pecas jogadas
+int pecasParaCompra = 14; //Numero de pecas para compra
 tipoPeca mesaOrdenada[MAXPECA]; //Mesa do jogo ordenada
 
 int ponta[2]; //Pecas na ponta. Ponta esquerda [0:2] | Ponta direita [3:1]

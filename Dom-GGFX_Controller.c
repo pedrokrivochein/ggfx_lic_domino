@@ -52,14 +52,17 @@ void gameLoop(){ //Loop do jogo (Menu de acoes do jogador)
     char escolha = menuJogo(jogadorAtual);
 	switch(escolha){
 	    case '1': //Jogar uma peca
-		jogarPeca();
+			jogarPeca();
 			break;
-		case '2': //Comprar pecas
-		comprarPeca();
+		case '2': //Comprar/Passar pecas
+			if(pecasParaCompra > 0)
+				comprarPeca();
+			else
+				trocarVezJogador();
 			break;
 			case '3': //Voltar ao menu
-		inicializarJogo();
-		return;
+			inicializarJogo();
+			return;
 		default:
 			printf("\nEm desenvolvimento\n");
 			break;
@@ -86,6 +89,8 @@ void criarPecas(){
     pecaHolder.status = -1;
     for(i = 0; i < 28; i++) //Adiciona essas pecas na mesa.
     	mesaOrdenada[i].status = -1;
+	
+	pecasParaCompra = 14;
 }
 
 void embaralharPecas(){ //Embaralha as pecas na mesa.
@@ -118,6 +123,7 @@ void comprarPeca(){ //Comprar pecas
 		if(mesa[i].status == 2){
 			mesa[i].status = jogadorAtual;
 			printf("\nPeca comprada: [%d:%d]\n", mesa[i].lado1, mesa[i].lado2);
+			pecasParaCompra--;
 			divisoria();
 			return;
 		}
