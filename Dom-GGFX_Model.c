@@ -2,6 +2,8 @@
 
 #define MAXPECA 28
 
+int jogoEmProgresso = 0; //Joga esta rodando
+
 typedef struct peca{
     int lado1, lado2;
     int status; //0 - Jogador 1 | 1 - Jogador 2 | 2 - Compra | 3 - Mesa

@@ -17,8 +17,9 @@ void escolherJogadorInicial(); //Escolhe o jogador que inicia com base em suas p
 void comprarPeca(); //Comprar uma peca.
 void adicionarPecaMesaOrdenada(int lado, tipoPeca peca); //Adiciona os pecas na mesa.
 void acabarJogoPeca();
-void inicializarJogo(){ //Recebe o comando o usuario no menu geral.
+void inicializarJogo(){ //Recebe o comando o usuario no menu geral
     char escolha = menuGeral();
+	jogoEmProgresso = 0; //Jogo nao esta em progresso
 
     switch(escolha){
         case '1': //Iniciar jogo
@@ -34,6 +35,8 @@ void inicializarJogo(){ //Recebe o comando o usuario no menu geral.
 }
 
 void iniciarJogo(){ //Iniciar o jogo.
+	jogoEmProgresso = 1; //Jogo entra em progresso
+
 	criarPecas(); //Gera as pecas da mesa.
 	
 	menuJogadores(); //Chama o menu para escolher a quantidade de jogadores e seus nomes.
@@ -47,6 +50,7 @@ void iniciarJogo(){ //Iniciar o jogo.
 }
 
 void gameLoop(){ //Loop do jogo (Menu de acoes do jogador)
+	if(!jogoEmProgresso) return;
     mostrarPecasMesa();
     mostrarPecasJogador(jogadorAtual);
     char escolha = menuJogo(jogadorAtual);
@@ -178,26 +182,6 @@ void jogarPeca(){ //Jogar peca.
 	divisoria();
 }
 
-void acabarJogoPeca(){
-    int i, count = 0;
-    for(i = 0; i < MAXPECA; i++){
-        if(mesa[i].status == jogadorAtual)
-            count++;
-    }
-    if(count == 0){
-        mostrarPecasMesa();
-        if(jogadorAtual == 0)
-            mostrarPecasJogador(1);
-        else
-            mostrarPecasJogador(0);
-        printf("\nO jogador %s venceu!\n", jogadores[jogadorAtual].nome);
-        printf("Aperte enter para continuar!");
-        getchar();
-        limparBuffer();
-        inicializarJogo();
-    }
-}
-
 int checarValidadeJogar(tipoPeca peca){ //Checa a validade de uma peca ser jogada.
 	char i, aux = 0, valido = 0;
 	for(i = 0; i < 2; i++){ //Checa se nas pontas existe uma peca de mesmo valor.
@@ -296,4 +280,24 @@ void adicionarPecaMesaOrdenada(int lado, tipoPeca peca){ //Adicionar uma peca a 
 	}
 	
 	pecasJogadas++; //Aumenta o numero de pecas jogadas.
+}
+
+void acabarJogoPeca(){
+    int i, count = 0;
+    for(i = 0; i < MAXPECA; i++){
+        if(mesa[i].status == jogadorAtual)
+            count++;
+    }
+    if(count == 0){
+        mostrarPecasMesa();
+        if(jogadorAtual == 0)
+            mostrarPecasJogador(1);
+        else
+            mostrarPecasJogador(0);
+        printf("\nO jogador %s venceu!\n", jogadores[jogadorAtual].nome);
+        printf("Aperte enter para continuar!");
+        getchar();
+        limparBuffer();
+        inicializarJogo();
+    }
 }
