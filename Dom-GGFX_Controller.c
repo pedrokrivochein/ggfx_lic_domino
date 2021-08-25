@@ -16,7 +16,7 @@ void trocarVezJogador(); //Troca a vez dos jogadores.
 void escolherJogadorInicial(); //Escolhe o jogador que inicia com base em suas pecas.
 void comprarPeca(); //Comprar uma peca.
 void adicionarPecaMesaOrdenada(int lado, tipoPeca peca); //Adiciona os pecas na mesa.
-
+void acabarJogoPeca();
 void inicializarJogo(){ //Recebe o comando o usuario no menu geral.
     char escolha = menuGeral();
 
@@ -170,13 +170,32 @@ void jogarPeca(){ //Jogar peca.
 	        mesa[i].status = 3; //A peca vira da mesa.
 
 	        printf("\n\n%s jogou a peca: [%d:%d]\n", jogadores[jogadorAtual].nome, mesa[i].lado1, mesa[i].lado2);
-			
 	        trocarVezJogador(); //Troca a vez dos jogadores.
 	    }else{ //Caso a peca nao possa ser jogada, avisa o jogador.
 	        printf("Essa peca nao pode ser jogada.\n"); //Peca invalida
 	    }
 	}
 	divisoria();
+}
+
+void acabarJogoPeca(){
+    int i, count = 0;
+    for(i = 0; i < MAXPECA; i++){
+        if(mesa[i].status == jogadorAtual)
+            count++;
+    }
+    if(count == 0){
+        mostrarPecasMesa();
+        if(jogadorAtual == 0)
+            mostrarPecasJogador(1);
+        else
+            mostrarPecasJogador(0);
+        printf("\nO jogador %s venceu!\n", jogadores[jogadorAtual].nome);
+        printf("Aperte enter para continuar!");
+        scanf("%d", &count);
+        limparBuffer();
+        inicializarJogo();
+    }
 }
 
 int checarValidadeJogar(tipoPeca peca){ //Checa a validade de uma peca ser jogada.
@@ -251,6 +270,7 @@ void escolherJogadorInicial(){ //Roda pelas pecas dos jogadores e encontra a pec
 }
 
 void trocarVezJogador(){ //Troca a vez entre os jogadores.
+    acabarJogoPeca();
 	if(jogadorAtual == 0)
 		jogadorAtual = 1;
 	else
