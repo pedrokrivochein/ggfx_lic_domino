@@ -192,7 +192,7 @@ void acabarJogoPeca(){
             mostrarPecasJogador(0);
         printf("\nO jogador %s venceu!\n", jogadores[jogadorAtual].nome);
         printf("Aperte enter para continuar!");
-        scanf("%d", &count);
+        getchar();
         limparBuffer();
         inicializarJogo();
     }
