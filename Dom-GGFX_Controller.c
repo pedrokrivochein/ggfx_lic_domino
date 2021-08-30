@@ -326,8 +326,19 @@ void acabarJogoPeca(){ //Checa o final do jogo
 	int vencedor = 0;
 	if(somaPecasJogadores[0] < somaPecasJogadores[1]) //Checa a soma e atribui um vencedor
 		vencedor = 0;
-	else
+	else if(somaPecasJogadores[1] < somaPecasJogadores[0])
 		vencedor = 1;
+	else{ //Os dois jogadores tem a mesma soma de pecas.
+		mostrarPecasMesa();
+		mostrarPecasJogador(0);
+		mostrarPecasJogador(1);
+		printf("\nO jogo empatou!\n");
+	    printf("Aperte enter para continuar!");
+	    getchar();
+	    limparBuffer();
+	    inicializarJogo();
+		return;
+	}
 
 	mostrarPecasMesa();
 	mostrarPecasJogador(0);
