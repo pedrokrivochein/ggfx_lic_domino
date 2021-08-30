@@ -11,12 +11,13 @@ void criarPecas(); //Gera as pecas e as coloca na mesa
 void embaralharPecas(); //Embaralha as pecas da mesa
 void separarPecas(); //Separar as pecas
 void jogarPeca(); //Inicia o processo para o jogador jogar uma peca
-int checarValidadeJogar(tipoPeca peca); //Checa a validade da peca que o jogador escolheu para ser jogada.
+int checarValidadeJogar(tipoPeca peca, int apenasChecagem); //Checa a validade da peca que o jogador escolheu para ser jogada.
 void trocarVezJogador(); //Troca a vez dos jogadores.
 void escolherJogadorInicial(); //Escolhe o jogador que inicia com base em suas pecas.
 void comprarPeca(); //Comprar uma peca.
 void adicionarPecaMesaOrdenada(int lado, tipoPeca peca); //Adiciona os pecas na mesa.
-void acabarJogoPeca();
+void acabarJogoPeca(); //Checar se o jogo pode terminar.
+
 void inicializarJogo(){ //Recebe o comando o usuario no menu geral
     char escolha = menuGeral();
 	jogoEmProgresso = 0; //Jogo nao esta em progresso
@@ -148,7 +149,7 @@ void jogarPeca(){ //Jogar peca.
 	        }
 	    }
 
-	    int checagem = checarValidadeJogar(mesa[i]); //Checa se a peca pode ser jogada.
+	    int checagem = checarValidadeJogar(mesa[i], 0); //Checa se a peca pode ser jogada.
 	    if(checagem != -1){ //A peca pode ser jogada.
 	    	tipoPeca pecaAux;
 	        if(mesa[i].lado1 == ponta[checagem]){ //Faz a checagem em qual ponta a peca e valida e vira ela de acordo.
@@ -182,7 +183,7 @@ void jogarPeca(){ //Jogar peca.
 	divisoria();
 }
 
-int checarValidadeJogar(tipoPeca peca){ //Checa a validade de uma peca ser jogada.
+int checarValidadeJogar(tipoPeca peca, int apenasChecagem){ //Checa a validade de uma peca ser jogada.
 	char i, aux = 0, valido = 0;
 	for(i = 0; i < 2; i++){ //Checa se nas pontas existe uma peca de mesmo valor.
 		if(ponta[i] == peca.lado1 || ponta[i] == peca.lado2){
@@ -196,12 +197,13 @@ int checarValidadeJogar(tipoPeca peca){ //Checa a validade de uma peca ser jogad
 		case 1:
 			return valido;
 		case 2: //Se dois lados estao disponiveis, da ao jogador a possibilidade de escolher qual lado quer jogar.
-			switch (menuEscolhaLado()){//Perguntar qual lado
-				case '1':
-					return 0;
-				case '2':
-					return 1;
-			}
+			if(!apenasChecagem)
+				switch (menuEscolhaLado()){//Perguntar qual lado
+					case '1':
+						return 0;
+					case '2':
+						return 1;
+				}
 
 	}
 }
@@ -282,13 +284,14 @@ void adicionarPecaMesaOrdenada(int lado, tipoPeca peca){ //Adicionar uma peca a 
 	pecasJogadas++; //Aumenta o numero de pecas jogadas.
 }
 
-void acabarJogoPeca(){
-    int i, count = 0;
-    for(i = 0; i < MAXPECA; i++){
+void acabarJogoPeca(){ //Checa o final do jogo
+    int i, j, count = 0;
+    for(i = 0; i < MAXPECA; i++){ //Roda pelas pecas e verifica se o jogador tem peca
         if(mesa[i].status == jogadorAtual)
             count++;
     }
-    if(count == 0){
+
+    if(count == 0){ //Caso o jogador nao tenha mais nenhuma peca, ele vence
         mostrarPecasMesa();
         if(jogadorAtual == 0)
             mostrarPecasJogador(1);
@@ -299,5 +302,39 @@ void acabarJogoPeca(){
         getchar();
         limparBuffer();
         inicializarJogo();
+		return;
     }
+
+	if(pecasParaCompra > 0) return; //Verifica se ainda tem pecas para comprar.
+
+	for(i = 0; i < 2; i++) //Roda pelas pecas dos jogadores e verifica se tem alguma valida
+		for(j = 0; j < MAXPECA; j++){
+			if(mesa[j].status == i){
+				if(checarValidadeJogar(mesa[j], 1) != -1)
+					return;
+			}
+		}
+
+	int somaPecasJogadores[2] = {0, 0};
+	for(i = 0; i < 2; i++) //Roda pelas pecas dos jogadores e soma seus lados para verificar quem tem a menor soma
+		for(j = 0; j < MAXPECA; j++){
+			if(mesa[j].status == i){
+				somaPecasJogadores[i] += mesa[j].lado1 + mesa[j].lado2;
+			}
+		}
+
+	int vencedor = 0;
+	if(somaPecasJogadores[0] < somaPecasJogadores[1]) //Checa a soma e atribui um vencedor
+		vencedor = 0;
+	else
+		vencedor = 1;
+
+	mostrarPecasMesa();
+	mostrarPecasJogador(0);
+	mostrarPecasJogador(1);
+	printf("\nO jogador %s venceu!\n", jogadores[vencedor].nome);
+    printf("Aperte enter para continuar!");
+    getchar();
+    limparBuffer();
+    inicializarJogo();
 }

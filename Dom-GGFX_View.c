@@ -9,6 +9,7 @@
 
 //Declaracoes funcoes
 void limparBuffer(); //Limpa o buffer do teclado.
+void mostrarPecasPossiveisDeJogar(); //Mostra as pecas possiveis do jogador atual.
 
 char menuGeral(){ //Menu inicial
     printf("\n---DOMINO ETAPA 3---\n");
@@ -51,11 +52,16 @@ char menuJogo(int jogador){ //Menu de acoes dentro do jogo
     char i, escolha, count = 0;
     printf("\nJogo de Domino (GGFX)\n");
     printf("Vez de: %s\n", jogadores[jogador].nome);
-    
+
+    printf("\n1) Jogar (Possiveis: ");
+
+    mostrarPecasPossiveisDeJogar(); //Mostra as pecas possiveis de jogar.
+
     if(pecasParaCompra > 0)
-        printf("\n1) Jogar\n2) Comprar pecas (Restante: %d)\n3) Voltar menu principal\n-> Escolha uma opcao: ", pecasParaCompra);
+        printf(")\n2) Comprar pecas (Restante: %d)\n3) Voltar menu principal\n-> Escolha uma opcao: ", pecasParaCompra);
     else
-        printf("\n1) Jogar\n2) Passar\n3) Voltar menu principal\n-> Escolha uma opcao: ");
+        printf(")\n2) Passar\n3) Voltar menu principal\n-> Escolha uma opcao: ");
+        
     scanf(" %c", &escolha);
     return escolha;
 }
@@ -162,6 +168,14 @@ void divisoria(){ //Monta as divisorias entre cada jogada
         for(k = 1; k < pecasJogadas; k++)
             printf("=-=-=-");
     printf("\n");
+}
+
+void mostrarPecasPossiveisDeJogar(){
+    int i;
+    for(i = 0; i < MAXPECA; i++) //Roda pelas pecas e mostra as que sao possiveis jogar.
+        if(mesa[i].status == jogadorAtual)
+            if(checarValidadeJogar(mesa[i], 1) != -1)
+                printf("[%d:%d] ", mesa[i].lado1, mesa[i].lado2);
 }
 
 void limparBuffer(){ //Limpar buffer do teclado.
