@@ -6,15 +6,18 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-
 //Declaracoes funcoes
 void limparBuffer(); //Limpa o buffer do teclado.
 void mostrarPecasPossiveisDeJogar(); //Mostra as pecas possiveis do jogador atual.
 
 char menuGeral(){ //Menu inicial
-    printf("\n---DOMINO ETAPA 3---\n");
-    printf("\n-----GRUPO GGFX-----\n\n");
-
+    printf("   _____    _____   ______  __   __\n"
+           "  / ____|  / ____| |  ____| \\ \\ / /\n"
+           " | |  __  | |  __  | |__     \\ V / \n"
+           " | | |_ | | | |_ | |  __|     > <  \n"
+           " | |__| | | |__| | | |       / . \\ \n"
+           "  \\_____|  \\_____| |_|      /_/ \\_\\\n"
+           "                                   \n");
     char escolha;
     printf("1) Iniciar novo jogo\n2) Continuar a Jogar - EM BREVE\n3) Salvar Jogo - EM BREVE\n4) Carregar Jogo - EM BREVE\n5) Regras do Jogo - EM BREVE\n6) Sair do Jogo\n-> Escolha uma opcao: ");
     scanf(" %c", &escolha);
