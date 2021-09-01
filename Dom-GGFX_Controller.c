@@ -17,6 +17,8 @@ void escolherJogadorInicial(); //Escolhe o jogador que inicia com base em suas p
 void comprarPeca(); //Comprar uma peca.
 void adicionarPecaMesaOrdenada(int lado, tipoPeca peca); //Adiciona os pecas na mesa.
 void acabarJogoPeca(); //Checar se o jogo pode terminar.
+void salvarJogo(); //Salva o jogo.
+void carregarJogo(); //Carrega o jogo.
 
 void inicializarJogo(){ //Recebe o comando o usuario no menu geral
     char escolha = menuGeral();
@@ -353,7 +355,7 @@ void acabarJogoPeca(){ //Checa o final do jogo
     inicializarJogo();
 }
 
-void salvarJogo(){
+void salvarJogo(){ //Salva o jogo
 	int i;
 	FILE *fp;
 
@@ -425,4 +427,7 @@ void salvarJogo(){
 
 	fclose(fp); //Fecha o arquivo ARQVARIAVEIS
 
+}
+
+void carregarJogo(){ //Carrega o jogo
 }
