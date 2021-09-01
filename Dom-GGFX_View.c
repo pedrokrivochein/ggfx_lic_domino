@@ -16,7 +16,7 @@ char menuGeral(){ //Menu inicial
     printf("\n-----GRUPO GGFX-----\n\n");
 
     char escolha;
-    printf("1) Iniciar novo jogo\n2) Continuar a Jogar - EM BREVE\n3) Salvar Jogo - EM BREVE\n4) Carregar Jogo - EM BREVE\n5) Regras do Jogo - EM BREVE\n6) Sair do Jogo\n-> Escolha uma opcao: ");
+    printf("1) Iniciar novo jogo\n2) Continuar a Jogar - EM BREVE\n3) Carregar Jogo - EM BREVE\n4) Regras do Jogo - EM BREVE\n5) Sair do Jogo\n-> Escolha uma opcao: ");
     scanf(" %c", &escolha);
     return escolha;
 }
@@ -58,9 +58,9 @@ char menuJogo(int jogador){ //Menu de acoes dentro do jogo
     mostrarPecasPossiveisDeJogar(); //Mostra as pecas possiveis de jogar.
 
     if(pecasParaCompra > 0)
-        printf(")\n2) Comprar pecas (Restante: %d)\n3) Voltar menu principal\n-> Escolha uma opcao: ", pecasParaCompra);
+        printf(")\n2) Comprar pecas (Restante: %d)\n3) Salvar Jogo\n4) Voltar menu principal\n-> Escolha uma opcao: ", pecasParaCompra);
     else
-        printf(")\n2) Passar\n3) Voltar menu principal\n-> Escolha uma opcao: ");
+        printf(")\n2) Passar\n3) Salvar Jogo\n4) Voltar menu principal\n-> Escolha uma opcao: ");
         
     scanf(" %c", &escolha);
     return escolha;
