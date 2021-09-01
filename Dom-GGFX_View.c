@@ -19,7 +19,7 @@ char menuGeral(){ //Menu inicial
            "  \\_____|  \\_____| |_|      /_/ \\_\\\n"
            "                                   \n");
     char escolha;
-    printf("1) Iniciar novo jogo\n2) Continuar a Jogar - EM BREVE\n3) Carregar Jogo - EM BREVE\n4) Regras do Jogo - EM BREVE\n5) Sair do Jogo\n-> Escolha uma opcao: ");
+    printf("1) Iniciar novo jogo\n2) Continuar a Jogar - EM BREVE\n3) Carregar Jogo\n4) Regras do Jogo - EM BREVE\n5) Sair do Jogo\n-> Escolha uma opcao: ");
     scanf(" %c", &escolha);
     return escolha;
 }

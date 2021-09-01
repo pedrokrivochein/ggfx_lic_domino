@@ -28,6 +28,9 @@ void inicializarJogo(){ //Recebe o comando o usuario no menu geral
         case '1': //Iniciar jogo
         	iniciarJogo();
             break;
+		case '3':
+			carregarJogo();
+			break;
         case '5': //Voltar ao menu
 			return;
 		default:
@@ -372,7 +375,7 @@ void salvarJogo(){ //Salva o jogo
 	}
 
 	for(i = 0; i < 2; i++){ //Adiciona ao ARQPECAS as pecas da ponta
-		if(fwrite(&ponta, sizeof(ponta), 1, fp) != 1){
+		if(fwrite(&ponta[i], sizeof(ponta), 1, fp) != 1){
 			printf("Erro PONTA");
 			break;
 		}
@@ -427,7 +430,83 @@ void salvarJogo(){ //Salva o jogo
 
 	fclose(fp); //Fecha o arquivo ARQVARIAVEIS
 
+	printf("\nJogo salvo com sucesso.\n");
 }
 
 void carregarJogo(){ //Carrega o jogo
+	int i;
+	FILE *fp;
+
+	if((fp = fopen("ARQPECAS", "r")) == NULL){ //Abre o arquivo ARQPECAS
+		printf("\nHouve um erro para salvar o arquivo. (ARQPECAS)");
+		return;
+	}
+
+	for(i = 0; i < MAXPECA; i++){ //Le do arquivo ARQPECAS a estrutura da mesa
+		if(fread(&mesa[i], sizeof(struct peca), 1, fp) != 1){
+			printf("Erro MESA");
+			break;
+		}
+	}
+
+	for(i = 0; i < 2; i++){ //Le do arquivo ARQPECAS as pecas da ponta
+		if(fread(&ponta[i], sizeof(ponta), 1, fp) != 1){
+			printf("Erro PONTA");
+			break;
+		}
+	}
+
+	fclose(fp); //Fecha o arquivo ARQPECAS
+
+	if((fp = fopen("ARQMESA", "r")) == NULL){ //Abre o arquivo ARQMESA
+		printf("\nHouve um erro para salvar o arquivo. (ARQMESA)");
+		return;
+	}
+
+	for(i = 0; i < MAXPECA; i++){ //Le do arquivo ARQMESA a estrutura da mesa ordenada
+		if(fread(&mesaOrdenada[i], sizeof(struct peca), 1, fp) != 1){
+			printf("Erro MESA_ORDENADA");
+			break;
+		}
+	}
+
+	fclose(fp); //Fecha o arquivo ARQMESA
+
+	if((fp = fopen("ARQVARIAVEIS", "r")) == NULL){ //Abre o arquivo ARQVARIAVEIS
+		printf("\nHouve um erro para salvar o arquivo. (ARQVARIAVEIS)");
+		return;
+	}
+
+	//Jogadores
+	for(i = 0; i < 2; i++){ //Le do arquivo ARQVARIAVEIS a estrutura dos jogadores
+		if(fread(&jogadores[i], sizeof(struct jogador), 1, fp) != 1){
+			printf("Erro JOGADORES");
+			break;
+		}
+	}
+
+	//Jogador Atual
+	if(fread(&jogadorAtual, sizeof(jogadorAtual), 1, fp) != 1){ //Le do arquivo ARQVARIAVEIS a variavel jogadorAtual
+		printf("Erro JOGADOR_ATUAL");
+		return;
+	}
+
+	//Pecas Jogadas
+	if(fread(&pecasJogadas, sizeof(pecasJogadas), 1, fp) != 1){ //Le do arquivo ARQVARIAVEIS a variavel pecasJogadas
+		printf("Erro PECAS_JOGADAS");
+		return;
+	}
+
+	//Pecas Para Compra
+	if(fread(&pecasParaCompra, sizeof(pecasParaCompra), 1, fp) != 1){ //Le do arquivo ARQVARIAVEIS a variavel pecasParaCompra
+		printf("Erro PECAS_PARA_COMPRA");
+		return;
+	}
+
+	fclose(fp); //Fecha o arquivo ARQVARIAVEIS
+
+	printf("\nJogo carregado com sucesso.\n");
+
+	jogoEmProgresso = 1;
+	gameLoop();
 }
