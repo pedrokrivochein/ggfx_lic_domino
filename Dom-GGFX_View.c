@@ -19,7 +19,7 @@ char menuGeral(){ //Menu inicial
            "  \\_____|  \\_____| |_|      /_/ \\_\\\n"
            "                                   \n");
     char escolha;
-    printf("1) Iniciar novo jogo\n2) Continuar a Jogar - EM BREVE\n3) Carregar Jogo\n4) Regras do Jogo - EM BREVE\n5) Sair do Jogo\n-> Escolha uma opcao: ");
+    printf("1) Iniciar novo jogo\n2) Continuar Jogo\n3) Regras do Jogo\n4) Sair do Jogo\n-> Escolha uma opcao: ");
     scanf(" %c", &escolha);
     return escolha;
 }
@@ -179,6 +179,33 @@ void mostrarPecasPossiveisDeJogar(){
         if(mesa[i].status == jogadorAtual)
             if(checarValidadeJogar(mesa[i], 1) != -1)
                 printf("[%d:%d] ", mesa[i].lado1, mesa[i].lado2);
+}
+
+void mostrarRegras(){
+	printf("\nCada jogador pega sete pecas e pode comprar sempre"
+	"que precisar de uma peca para poder jogar e quantas vezes for necessario. Da-se inicio ao jogo o"
+	"jogador que tirar a peca \"[6:6]\". Caso ninguem a tenha tirado, inicia-se o jogador que tiver a"
+	"peca com os numeros repetidos mais altos, ou seja, \"[5:5]\", \"[4:4]\", e assim"
+	"sucessivamente. Os jogadores devem colocar pecas que"
+	"tenham os mesmos números das pecas que se encontram na ponta do jogo.\n\n");
+	
+	printf("Se um jogador nao puder jogar, devera \"comprar\" do monte tantas peças como forem"
+		"necessarias. Se nao houver pecas no monte, passara o turno ao seguinte jogador.\n\n");
+	
+	printf("Quando um jogador coloca sua ultima pedra na mesa, essa acao e chamada de bater."
+	"Quando joga-se sozinho, o jogador que ganhou a partida soma os pontos de todos os seus"
+	"adversarios. Jogando em dupla, somam-se os pontos de todos os jogadores incluindo os"
+	"do seu companheiro.\n\n");
+	
+	printf("Existem casos onde nenhum dos jogadores pode continuar a partida. Isto ocorre quando"
+	"o numero das extremidades saiu 7 vezes antes. Nesse momento se diz que a partida esta"
+	"fechada. Os jogadores contarão os pontos das pedras que ficaram; o jogador ou dupla com"
+	"menos pontos vencem e somam-se os pontos da maneira habitual.\n\n");
+	
+	limparBuffer();
+	
+	printf("Aperte qualquer tecla para continuar.");
+	getchar();
 }
 
 void limparBuffer(){ //Limpar buffer do teclado.
