@@ -366,7 +366,7 @@ void acabarJogoPeca(){ //Checa o final do jogo
 void salvarJogo(){ //Salva o jogo
 	int i;
 	FILE *fp;
-
+	
 	if((fp = fopen("ARQPECAS", "w")) == NULL){ //Cria o arquivo ARQPECAS
 		printf("\nHouve um erro para salvar o arquivo. (ARQPECAS)\n");
 		return;

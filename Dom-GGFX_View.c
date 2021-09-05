@@ -187,9 +187,9 @@ void mostrarRegras(){
 	"jogador que tirar a peca \"[6:6]\". Caso ninguem a tenha tirado, inicia-se o jogador que tiver a"
 	"peca com os numeros repetidos mais altos, ou seja, \"[5:5]\", \"[4:4]\", e assim"
 	"sucessivamente. Os jogadores devem colocar pecas que"
-	"tenham os mesmos números das pecas que se encontram na ponta do jogo.\n\n");
+	"tenham os mesmos nï¿½meros das pecas que se encontram na ponta do jogo.\n\n");
 	
-	printf("Se um jogador nao puder jogar, devera \"comprar\" do monte tantas peças como forem"
+	printf("Se um jogador nao puder jogar, devera \"comprar\" do monte tantas peï¿½as como forem"
 		"necessarias. Se nao houver pecas no monte, passara o turno ao seguinte jogador.\n\n");
 	
 	printf("Quando um jogador coloca sua ultima pedra na mesa, essa acao e chamada de bater."
@@ -199,7 +199,7 @@ void mostrarRegras(){
 	
 	printf("Existem casos onde nenhum dos jogadores pode continuar a partida. Isto ocorre quando"
 	"o numero das extremidades saiu 7 vezes antes. Nesse momento se diz que a partida esta"
-	"fechada. Os jogadores contarão os pontos das pedras que ficaram; o jogador ou dupla com"
+	"fechada. Os jogadores contarï¿½o os pontos das pedras que ficaram; o jogador ou dupla com"
 	"menos pontos vencem e somam-se os pontos da maneira habitual.\n\n");
 	
 	limparBuffer();
