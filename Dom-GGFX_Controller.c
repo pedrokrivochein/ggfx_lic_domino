@@ -11,12 +11,14 @@ void criarPecas(); //Gera as pecas e as coloca na mesa
 void embaralharPecas(); //Embaralha as pecas da mesa
 void separarPecas(); //Separar as pecas
 void jogarPeca(); //Inicia o processo para o jogador jogar uma peca
+void jogarPecaBot(); //Inicia o processo para o jogador jogar uma peca do bot
 int checarValidadeJogar(tipoPeca peca, int apenasChecagem); //Checa a validade da peca que o jogador escolheu para ser jogada.
 void trocarVezJogador(); //Troca a vez dos jogadores.
 void escolherJogadorInicial(); //Escolhe o jogador que inicia com base em suas pecas.
 void comprarPeca(); //Comprar uma peca.
 void adicionarPecaMesaOrdenada(int lado, tipoPeca peca); //Adiciona os pecas na mesa.
 void acabarJogoPeca(); //Checar se o jogo pode terminar.
+void computadorJoga(); //Computador joga sua vez.
 void salvarJogo(); //Salva o jogo.
 int carregarJogo(); //Carrega o jogo.
 
@@ -62,6 +64,12 @@ void iniciarJogo(){ //Iniciar o jogo.
 
 void gameLoop(){ //Loop do jogo (Menu de acoes do jogador)
 	if(!jogoEmProgresso) return;
+
+	if(numeroDeJogadores == jogadorAtual){ //Caso haja e seja a vez do bot
+		computadorJoga();
+		return;
+	}
+
     mostrarPecasMesa();
     mostrarPecasJogador(jogadorAtual);
     char escolha = menuJogo(jogadorAtual);
@@ -140,9 +148,11 @@ void comprarPeca(){ //Comprar pecas
 	for (i = 0; i < MAXPECA; i++){ //Roda por todas as pecas, a primeira que estiver disponivel para compra vira do jogador.
 		if(mesa[i].status == 2){
 			mesa[i].status = jogadorAtual;
-			printf("\nPeca comprada: [%d:%d]\n", mesa[i].lado1, mesa[i].lado2);
 			pecasParaCompra--;
-			divisoria();
+			if(numeroDeJogadores != jogadorAtual){ //Bot esta jogando.
+				printf("\nPeca comprada: [%d:%d]\n", mesa[i].lado1, mesa[i].lado2);
+				divisoria();
+			}
 			return;
 		}
 	}
@@ -196,6 +206,39 @@ void jogarPeca(){ //Jogar peca.
 	divisoria();
 }
 
+void jogarPecaBot(int peca){ //Cuida do bot jogar a peca.
+	tipoPeca pecaAux;
+	int n = rand() % 1;
+	int checagem = checarValidadeJogar(mesa[peca], 1);
+	if(checagem == 2) //Escolha uma posicao aleatoria para jogar a peca se os dois lados estiverem disponiveis
+		checagem = n;
+	
+	if(mesa[peca].lado1 == ponta[checagem]){ //Faz a checagem em qual ponta a peca e valida e vira ela de acordo.
+		ponta[checagem] = mesa[peca].lado2;
+		if(checagem == 1){ //Jogar no lado direito
+			pecaAux.lado2 = mesa[peca].lado2;
+			pecaAux.lado1 = mesa[peca].lado1;
+		}else{ //Jogar no lado esquerdo
+			pecaAux.lado1 = mesa[peca].lado2;
+			pecaAux.lado2 = mesa[peca].lado1;
+		}
+	}else{
+		ponta[checagem] = mesa[peca].lado1;
+		if(checagem == 1){ //Jogador no lado direito
+			pecaAux.lado2 = mesa[peca].lado1;
+			pecaAux.lado1 = mesa[peca].lado2;
+		}else{ //Jogar no lado esquerdo
+			pecaAux.lado1 = mesa[peca].lado1;
+			pecaAux.lado2 = mesa[peca].lado2;
+		}
+	}
+	adicionarPecaMesaOrdenada(checagem, pecaAux);
+	mesa[peca].status = 3; //A peca vira da mesa.
+
+	printf("\n\n%s jogou a peca: [%d:%d]\n", jogadores[jogadorAtual].nome, mesa[peca].lado1, mesa[peca].lado2);
+	trocarVezJogador(); //Troca a vez dos jogadores.
+}
+
 int checarValidadeJogar(tipoPeca peca, int apenasChecagem){ //Checa a validade de uma peca ser jogada.
 	char i, aux = 0, valido = 0;
 	for(i = 0; i < 2; i++){ //Checa se nas pontas existe uma peca de mesmo valor.
@@ -217,6 +260,8 @@ int checarValidadeJogar(tipoPeca peca, int apenasChecagem){ //Checa a validade d
 					case '2':
 						return 1;
 				}
+			else
+				return 2;
 
 	}
 }
@@ -363,6 +408,32 @@ void acabarJogoPeca(){ //Checa o final do jogo
     inicializarJogo();
 }
 
+void computadorJoga(){ //Cuida da jogada do bot
+	int i, aux;
+	do{ //Loopa enquanto o bot nao, jogar uma peca ou passar a vez
+		aux = -1;
+		for(i = 0; i < MAXPECA; i++){ //Roda por todas as pecas do bot, encontrando uma valida para jogar
+			if(mesa[i].status == jogadorAtual){
+				if(checarValidadeJogar(mesa[i], 1) != -1){
+					aux = i;
+				}
+			}
+		}
+
+		if(aux != -1){ //Caso tenha encontrado uma peca valida para jogar, ele a joga
+			jogarPecaBot(aux);
+		}else{ //Caso nao tenha encontrado
+			if(pecasParaCompra > 0) //Verifica se a pecas para comprar
+				comprarPeca(); //Comprar uma peca
+			else{ //Caso nao haja, ele passa a vez
+				trocarVezJogador();
+				aux = 0;
+			}
+		}
+	}while(aux == -1);
+	gameLoop(); //Chama novamente o loop do jogo
+}
+
 void salvarJogo(){ //Salva o jogo
 	int i;
 	FILE *fp;
@@ -413,6 +484,12 @@ void salvarJogo(){ //Salva o jogo
 			printf("\nErro JOGADORES\n");
 			return;
 		}
+	}
+
+	//Numero de jogadores
+	if(fwrite(&numeroDeJogadores, sizeof(numeroDeJogadores), 1, fp) != 1){ //Adiciona ao ARQVARIAVEIS a variavel numeroDeJogadores
+		printf("\nErro NUMERO_DE_JOGADORES\n");
+		return;
 	}
 
 	//Jogador Atual
@@ -488,6 +565,12 @@ int carregarJogo(){ //Carrega o jogo
 			printf("\nErro JOGADORES\n");
 			return 0;
 		}
+	}
+
+	//Numero de jogadores
+	if(fread(&numeroDeJogadores, sizeof(numeroDeJogadores), 1, fp) != 1){ //Adiciona ao ARQVARIAVEIS a variavel numeroDeJogadores
+		printf("\nErro NUMERO_DE_JOGADORES\n");
+		return;
 	}
 
 	//Jogador Atual

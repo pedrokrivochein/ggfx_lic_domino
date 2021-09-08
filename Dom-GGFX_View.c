@@ -48,6 +48,8 @@ void menuJogadores(){ //Menu apos o inicial para escolher quantidade de jogadore
         fgets(jogadores[1].nome, 100, stdin);
         jogadores[1].nome[strlen(jogadores[1].nome) - 1] = '\0'; //Remove o \n no final da string.
     }
+
+    numeroDeJogadores = qtJogadores; //Atualiza o numero de jogadores conforme a escolha.
 }
 
 
