@@ -77,7 +77,7 @@ int menuJogarPeca(int jogador){ //Menu para jogar a peca.
     printf("\n");
 	for(i = 0; i < MAXPECA; i++){ //Roda pelas pecas do jogador e as numera para que ele possa escolher entre uma.
         if(mesa[i].status == jogador){
-		    printf("(%d):[%d:%d] ", aux, mesa[i].lado1, mesa[i].lado2);
+		    printf("(%d):[%d:%d]\n", aux, mesa[i].lado1, mesa[i].lado2);
 		    aux++;
 		}
     }

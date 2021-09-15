@@ -49,6 +49,7 @@ void inicializarJogo(){ //Recebe o comando o usuario no menu geral
 
 void iniciarJogo(){ //Iniciar o jogo.
 	jogoEmProgresso = 1; //Jogo entra em progresso
+	pecasJogadas = 0;
 
 	criarPecas(); //Gera as pecas da mesa.
 	
@@ -72,6 +73,11 @@ void gameLoop(){ //Loop do jogo (Menu de acoes do jogador)
 
     mostrarPecasMesa();
     mostrarPecasJogador(jogadorAtual);
+	
+	divisoria();
+	printf("%s", aviso);
+	divisoria();
+    
     char escolha = menuJogo(jogadorAtual);
 	switch(escolha){
 	    case '1': //Jogar uma peca
@@ -150,7 +156,7 @@ void comprarPeca(){ //Comprar pecas
 			mesa[i].status = jogadorAtual;
 			pecasParaCompra--;
 			if(numeroDeJogadores != jogadorAtual){ //Bot esta jogando.
-				printf("\nPeca comprada: [%d:%d]\n", mesa[i].lado1, mesa[i].lado2);
+				sprintf(aviso, "\nPeca comprada: [%d:%d]\n", mesa[i].lado1, mesa[i].lado2);
 				divisoria();
 			}
 			return;
@@ -197,10 +203,10 @@ void jogarPeca(){ //Jogar peca.
 	        adicionarPecaMesaOrdenada(checagem, pecaAux);
 	        mesa[i].status = 3; //A peca vira da mesa.
 
-	        printf("\n\n%s jogou a peca: [%d:%d]\n", jogadores[jogadorAtual].nome, mesa[i].lado1, mesa[i].lado2);
+	        sprintf(aviso, "\n%s jogou a peca: [%d:%d]\n", jogadores[jogadorAtual].nome, mesa[i].lado1, mesa[i].lado2);
 	        trocarVezJogador(); //Troca a vez dos jogadores.
 	    }else{ //Caso a peca nao possa ser jogada, avisa o jogador.
-	        printf("Essa peca nao pode ser jogada.\n"); //Peca invalida
+	        strcpy(aviso, "\nEssa peca nao pode ser jogada.\n"); //Peca invalida
 	    }
 	}
 	divisoria();
@@ -235,7 +241,7 @@ void jogarPecaBot(int peca){ //Cuida do bot jogar a peca.
 	adicionarPecaMesaOrdenada(checagem, pecaAux);
 	mesa[peca].status = 3; //A peca vira da mesa.
 
-	printf("\n\n%s jogou a peca: [%d:%d]\n", jogadores[jogadorAtual].nome, mesa[peca].lado1, mesa[peca].lado2);
+	sprintf(aviso, "\n%s jogou a peca: [%d:%d]\n", jogadores[jogadorAtual].nome, mesa[peca].lado1, mesa[peca].lado2);
 	trocarVezJogador(); //Troca a vez dos jogadores.
 }
 
@@ -279,7 +285,7 @@ void escolherJogadorInicial(){ //Roda pelas pecas dos jogadores e encontra a pec
 	
 	if(pecaAux != -1){ //Caso tenha encontrado uma peca dupla o jogador inicia com essa peca.
 		divisoria();
-		printf("\n%s iniciou com a peca: [%d:%d]\n\n", jogadores[mesa[pecaAux].status].nome, mesa[pecaAux].lado1, mesa[pecaAux].lado1);
+		sprintf(aviso, "\n%s iniciou com a peca: [%d:%d]\n\n", jogadores[mesa[pecaAux].status].nome, mesa[pecaAux].lado1, mesa[pecaAux].lado1);
 		jogadorAtual = mesa[pecaAux].status; //Jogador atual vira o que possui a peca.
 		mesa[pecaAux].status = 3; //Ele joga a peca na mesa.
 		trocarVezJogador(); //Troca a vez do jogador.
@@ -302,7 +308,7 @@ void escolherJogadorInicial(){ //Roda pelas pecas dos jogadores e encontra a pec
 	}
 	
 	divisoria();
-	printf("\n\nJogador %s iniciou com a peca: [%d:%d]\n\n", jogadores[mesa[pecaAux].status].nome, mesa[pecaAux].lado1, mesa[pecaAux].lado2);
+	sprintf(aviso, "\nJogador %s iniciou com a peca: [%d:%d]\n\n", jogadores[mesa[pecaAux].status].nome, mesa[pecaAux].lado1, mesa[pecaAux].lado2);
 	jogadorAtual = mesa[pecaAux].status; //Jogador atual vira o que possui a peca.
 	mesa[pecaAux].status = 3; //Ele joga a peca na mesa.
 	trocarVezJogador(); //Troca a vez do jogador.
@@ -409,7 +415,7 @@ void acabarJogoPeca(){ //Checa o final do jogo
 }
 
 void computadorJoga(){ //Cuida da jogada do bot
-	int i, aux;
+	int i, j, aux;
 	do{ //Loopa enquanto o bot nao, jogar uma peca ou passar a vez
 		aux = -1;
 		for(i = 0; i < MAXPECA; i++){ //Roda por todas as pecas do bot, encontrando uma valida para jogar

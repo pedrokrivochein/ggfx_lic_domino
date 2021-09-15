@@ -26,3 +26,5 @@ tipoJogador jogadores[2]; //Lista de jogadores
 int jogadorAtual = 0; //Jogador atual para jogar
 
 int numeroDeJogadores = 0; //Numero de jogadores jogando.
+
+char aviso[500]; //Mensagens de avisos (Vez do jogador, jogou tal peca, etc...).
