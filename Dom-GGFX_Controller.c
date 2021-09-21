@@ -292,7 +292,6 @@ void escolherJogadorInicial(){ //Roda pelas pecas dos jogadores e encontra a pec
 		mesa[pecaAux].status = 3; //Ele joga a peca na mesa.
 		trocarVezJogador(); //Troca a vez do jogador.
 		
-		
 		for(i = 0; i < 2; i++) ponta[i] = max; //Adiciona as pecas da ponta.
 		tipoPeca pecaHolder;
 		pecaHolder.lado1 = max;
