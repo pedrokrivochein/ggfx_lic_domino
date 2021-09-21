@@ -287,7 +287,7 @@ void escolherJogadorInicial(){ //Roda pelas pecas dos jogadores e encontra a pec
 	
 	if(pecaAux != -1){ //Caso tenha encontrado uma peca dupla o jogador inicia com essa peca.
 		divisoria();
-		sprintf(aviso, "\n%s iniciou com a peca: [%d:%d]\n\n", jogadores[mesa[pecaAux].status].nome, mesa[pecaAux].lado1, mesa[pecaAux].lado1);
+		sprintf(aviso, "\n%s iniciou com a peca: [%d:%d]\n", jogadores[mesa[pecaAux].status].nome, mesa[pecaAux].lado1, mesa[pecaAux].lado1);
 		jogadorAtual = mesa[pecaAux].status; //Jogador atual vira o que possui a peca.
 		mesa[pecaAux].status = 3; //Ele joga a peca na mesa.
 		trocarVezJogador(); //Troca a vez do jogador.
