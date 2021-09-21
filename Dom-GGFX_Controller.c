@@ -157,6 +157,8 @@ void comprarPeca(){ //Comprar pecas
 			pecasParaCompra--;
 			if(numeroDeJogadores != jogadorAtual){ //Bot esta jogando.
 				sprintf(aviso, "\nPeca comprada: [%d:%d]\n", mesa[i].lado1, mesa[i].lado2);
+			}else{
+				printf("\nComputador comprou uma peca\n");
 				divisoria();
 			}
 			return;
@@ -308,7 +310,7 @@ void escolherJogadorInicial(){ //Roda pelas pecas dos jogadores e encontra a pec
 	}
 	
 	divisoria();
-	sprintf(aviso, "\nJogador %s iniciou com a peca: [%d:%d]\n\n", jogadores[mesa[pecaAux].status].nome, mesa[pecaAux].lado1, mesa[pecaAux].lado2);
+	sprintf(aviso, "\nJogador %s iniciou com a peca: [%d:%d]\n", jogadores[mesa[pecaAux].status].nome, mesa[pecaAux].lado1, mesa[pecaAux].lado2);
 	jogadorAtual = mesa[pecaAux].status; //Jogador atual vira o que possui a peca.
 	mesa[pecaAux].status = 3; //Ele joga a peca na mesa.
 	trocarVezJogador(); //Troca a vez do jogador.
@@ -515,6 +517,12 @@ void salvarJogo(){ //Salva o jogo
 		printf("\nErro PECAS_PARA_COMPRA\n");
 		return;
 	}
+	
+	//Aviso
+	if(fwrite(&aviso, sizeof(aviso), 1, fp) != 1){ //Adiciona ao ARQVARIAVEIS a variavel aviso
+		printf("\nErro AVISO\n");
+		return;
+	}
 
 	fclose(fp); //Fecha o arquivo ARQVARIAVEIS
 
@@ -594,6 +602,12 @@ int carregarJogo(){ //Carrega o jogo
 	//Pecas Para Compra
 	if(fread(&pecasParaCompra, sizeof(pecasParaCompra), 1, fp) != 1){ //Le do arquivo ARQVARIAVEIS a variavel pecasParaCompra
 		printf("\nErro PECAS_PARA_COMPRA\n");
+		return 0;
+	}
+	
+	//Aviso
+	if(fread(&aviso, sizeof(aviso), 1, fp) != 1){ //Le do arquivo ARQVARIAVEIS a variavel aviso
+		printf("\nErro AVISO\n");
 		return 0;
 	}
 
