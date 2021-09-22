@@ -184,24 +184,24 @@ void mostrarPecasPossiveisDeJogar(){
 }
 
 void mostrarRegras(){
-	printf("\nCada jogador pega sete pecas e pode comprar sempre"
-	"que precisar de uma peca para poder jogar e quantas vezes for necessario. Da-se inicio ao jogo o"
-	"jogador que tirar a peca \"[6:6]\". Caso ninguem a tenha tirado, inicia-se o jogador que tiver a"
-	"peca com os numeros repetidos mais altos, ou seja, \"[5:5]\", \"[4:4]\", e assim"
-	"sucessivamente. Os jogadores devem colocar pecas que"
-	"tenham os mesmos n�meros das pecas que se encontram na ponta do jogo.\n\n");
+	printf("\nCada jogador pega sete pecas e pode comprar sempre "
+	"que precisar de uma peca para poder jogar e quantas vezes for necessario. Da-se inicio ao jogo o "
+	"jogador que tirar a peca \"[6:6]\". Caso ninguem a tenha tirado, inicia-se o jogador que tiver a "
+	"peca com os numeros repetidos mais altos, ou seja, \"[5:5]\", \"[4:4]\", e assim "
+	"sucessivamente. Os jogadores devem colocar pecas que "
+	"tenham os mesmos numeros das pecas que se encontram na ponta do jogo.\n\n");
 	
-	printf("Se um jogador nao puder jogar, devera \"comprar\" do monte tantas pe�as como forem"
+	printf("Se um jogador nao puder jogar, devera \"comprar\" do monte tantas pecas como forem "
 		"necessarias. Se nao houver pecas no monte, passara o turno ao seguinte jogador.\n\n");
 	
-	printf("Quando um jogador coloca sua ultima pedra na mesa, essa acao e chamada de bater."
-	"Quando joga-se sozinho, o jogador que ganhou a partida soma os pontos de todos os seus"
-	"adversarios. Jogando em dupla, somam-se os pontos de todos os jogadores incluindo os"
+	printf("Quando um jogador coloca sua ultima pedra na mesa, essa acao e chamada de bater. "
+	"Quando joga-se sozinho, o jogador que ganhou a partida soma os pontos de todos os seus "
+	"adversarios. Jogando em dupla, somam-se os pontos de todos os jogadores incluindo os "
 	"do seu companheiro.\n\n");
 	
-	printf("Existem casos onde nenhum dos jogadores pode continuar a partida. Isto ocorre quando"
-	"o numero das extremidades saiu 7 vezes antes. Nesse momento se diz que a partida esta"
-	"fechada. Os jogadores contar�o os pontos das pedras que ficaram; o jogador ou dupla com"
+	printf("Existem casos onde nenhum dos jogadores pode continuar a partida. Isto ocorre quando "
+	"o numero das extremidades saiu 7 vezes antes. Nesse momento se diz que a partida esta "
+	"fechada. Os jogadores contarao os pontos das pedras que ficaram; o jogador ou dupla com "
 	"menos pontos vencem e somam-se os pontos da maneira habitual.\n\n");
 	
 	limparBuffer();
